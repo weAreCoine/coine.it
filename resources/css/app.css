@@ -1,0 +1,165 @@
+@tailwind base;
+@layer base {
+    body {
+        @apply subpixel-antialiased overflow-x-hidden text-slate-900 dark:text-slate-50 bg-white dark:bg-slate-900;
+        text-rendering: optimizeLegibility;
+    }
+
+    main, footer {
+        a:not([class|="btn"]):not(.app-logo):not(.style-none) {
+            @apply duration-300 relative;
+
+            &:before {
+                @apply content-[''] absolute h-0.5 w-full bottom-0 left-0 bg-slate-300;
+            }
+
+            &:after {
+                @apply content-[''] absolute h-0.5 w-0 bottom-0 left-0 bg-orange-500 duration-500;
+            }
+
+            &:hover {
+                &::after {
+                    @apply w-full;
+                }
+            }
+        }
+    }
+}
+
+@tailwind components;
+@tailwind utilities;
+
+@layer component {
+    .container {
+        @apply mx-auto px-4;
+    }
+}
+
+.btn-primary {
+    @apply text-white pl-[1.5em] pr-[.5em] py-[.5em] rounded-full inline-block duration-300 bg-sky-900 dark:bg-white dark:text-slate-900 font-semibold;
+
+    &::after {
+        @apply inline-block ml-[.65em] text-orange-500 bg-white rounded-full duration-300;
+        content: '\f35a';
+        font: var(--fa-font-solid);
+        font-size: 1.5em;
+        vertical-align: middle;
+    }
+
+    &:not([disabled]):hover {
+        &::after {
+            @apply ml-[.85em];
+        }
+    }
+
+    &.inverse {
+        @apply text-sky-900 bg-white;
+    }
+
+    &[disabled] {
+        @apply bg-slate-400 text-slate-300;
+
+        &::after {
+            @apply text-slate-500 bg-slate-300;
+        }
+    }
+}
+
+.back-button {
+    @apply text-white flex items-center justify-center pr-[.5em] sm:pr-[1.5em] pl-[.5em] py-[.5em] rounded-full inline-block duration-300 bg-sky-900 dark:bg-white dark:text-slate-900 font-semibold;
+
+    &::before {
+        @apply inline-block mr-0 sm:mr-[.65em] text-orange-500 bg-white rounded-full duration-300;
+        content: '\f359';
+        font: var(--fa-font-solid);
+        font-size: 1.5em;
+        vertical-align: middle;
+    }
+
+    &:not([disabled]):hover {
+        &::before {
+            @apply sm:mr-[.85em];
+        }
+    }
+
+    &.inverse {
+        @apply text-sky-900 bg-white;
+    }
+
+    &[disabled] {
+        @apply bg-slate-400 text-slate-300;
+
+        &::before {
+            @apply text-slate-500 bg-slate-300;
+        }
+    }
+}
+
+.btn-secondary {
+    @apply pl-[1.5em] pr-[.5em] py-[.5em] rounded-full inline-block duration-300 border font-semibold border-sky-900;
+
+    &::after {
+        @apply inline-block ml-[.65em] text-orange-500 bg-white rounded-full duration-300;
+        content: '\f0a9';
+        font: var(--fa-font-solid);
+        font-size: 1.5em;
+        vertical-align: middle;
+    }
+
+    &:not([disabled]):hover {
+        &::after {
+            @apply ml-[.85em];
+        }
+    }
+
+    &.inverse {
+        @apply text-sky-900 bg-white;
+    }
+
+    &[disabled] {
+        @apply bg-slate-400 text-slate-300;
+
+        &::after {
+            @apply text-slate-500 bg-slate-300;
+        }
+    }
+
+}
+
+.material-input {
+    @apply relative;
+
+    input {
+        @apply w-full outline-none text-2xl border-b border-b-slate-300 duration-300 bg-transparent px-4 py-2 z-10;
+
+        &:not(:placeholder-shown), &:focus, &:valid {
+            @apply border-b-sky-900 dark:border-b-white;
+
+            ~ label {
+                @apply text-sm -top-1 -translate-y-1/2
+            }
+        }
+    }
+
+    label {
+        @apply absolute text-2xl left-4 right-4 top-2 text-slate-500 dark:text-slate-400 duration-500 cursor-text;
+    }
+}
+
+.accordion-icon {
+    @apply relative cursor-pointer p-4 bg-white/10 rounded ;
+
+    &::before {
+        @apply content-[''] w-4 h-[1.5px] bg-white absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2
+    }
+
+    &::after {
+        @apply content-[''] h-4 w-[1.5px] bg-white absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 duration-500
+    }
+
+    &.open {
+        &::after {
+            @apply rotate-90;
+        }
+    }
+}
