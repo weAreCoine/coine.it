@@ -15,8 +15,9 @@
          */
         public function index()
         {
+
             return view('Models.Post.index')->with([
-                'posts' => Post::orderBy('created_at', 'desc')->paginate()
+                'posts' => Post::orderBy(request('order_by', 'created_at'), request('order', 'desc'))->paginate()
             ]);
         }
 
