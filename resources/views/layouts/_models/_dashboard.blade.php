@@ -10,17 +10,21 @@
     @vite('resources/js/app.js')
     @vite('resources/css/app.css')
 </head>
-<body>
+<body class="bg-slate-50 dark:bg-white/10">
 @yield('header')
-<main class="@yield('mainClasses') container bg-white dark:bg-slate-900 flex gap-8 p-8">
+<main class="@yield('mainClasses') ">
     <div x-data="{visible : true}" x-show="visible" x-transition.opacity.duration.500ms @load.window="visible = false"
          class="fixed flex flex-col justify-center items-center top-0 left-0 h-screen w-screen bg-white dark:bg-slate-900 z-[99]">
         <div class="animate-pulse">
             @include('components.application-logo')
         </div>
     </div>
-    @yield('navigation')
-    <div class="grow">
+
+    <div class=" bg-slate-50 dark:bg-white/10 h-screen fixed top-0 left-0 w-1/5">
+        @yield('navigation')
+    </div>
+
+    <div class="ml-[20%] bg-white px-8 mr-6 mt-6 py-6 rounded-xl ">
         @yield('content')
     </div>
 </main>

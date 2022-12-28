@@ -1,8 +1,11 @@
 @extends('layouts._models._dashboard')
 
 @section('navigation')
-    <nav class="relative bg-slate-50 dark:bg-white/10 py-6 rounded-lg px-8">
+    <nav class="relative py-6 rounded-lg px-8">
         <ul>
+            <li class="mb-16">
+                @include('components.application-logo')
+            </li>
             <li class="flex items-center gap-4 mb-4 last:mb-0">
                 @php($label = __('Articles'))
                 <i class="fa-solid fa-pen-nib text-sm"></i>
