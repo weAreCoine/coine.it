@@ -2,15 +2,17 @@
 
     namespace App\Models;
 
+    use App\Traits\ValidateSlug;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
     use Illuminate\Database\Eloquent\Relations\BelongsTo;
     use Illuminate\Database\Eloquent\Relations\BelongsToMany;
     use Laravel\Scout\Searchable;
+    use Str;
 
     class Post extends Model
     {
-        use HasFactory, Searchable;
+        use HasFactory, Searchable, ValidateSlug;
 
         public function user(): BelongsTo
         {
@@ -43,4 +45,6 @@
                 'category_id' => Category::getModel()->toOptions(value: 'name', emptyOption: 'Filtra per categoria...', enableEmptyOption: true),
             ];
         }
+
+
     }

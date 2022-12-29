@@ -6,6 +6,7 @@
     use App\Http\Requests\UpdatePostRequest;
     use App\Models\Post;
     use Illuminate\Support\Arr;
+    use Illuminate\Support\Str;
 
     class PostController extends Controller
     {
@@ -84,11 +85,30 @@
          *
          * @param \App\Http\Requests\UpdatePostRequest $request
          * @param \App\Models\Post $post
-         * @return \Illuminate\Http\Response
+         * @return \Illuminate\Http\RedirectResponse
          */
         public function update(UpdatePostRequest $request, Post $post)
         {
-            //
+            $slug = Post::validateSlug(empty($request->get('slug')) ? $post->title : $request->get('slug'));
+
+            $validSlug = $slug;
+            while (Post::whereSlug($validSlug)->count() > 0) {
+                static $i = 1;
+                $validSlug = "$slug-$i";
+            }
+
+            $post->title = $request->get('title');
+            $post->slug = $validSlug;
+            $post->description = $request->get('description', '');
+            $post->content = $request->get('content');
+            $post->language_id = $request->get('language_code');
+            $post->category_id = $request->get('category_id');
+            $post->seo_title = $request->get('seo_title', $request->get('title'));
+            $post->seo_description = $request->get('seo_description', $request->get('description'));
+            $post->tags()->sync(explode(',', $request->get('tags', [])));
+            $post->save();
+            session()->flash('success', __('Article successfully saved'));
+            return redirect()->back();
         }
 
         public function emptyTrash()
