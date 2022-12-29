@@ -1,15 +1,52 @@
 @extends('dashboard')
 @section('content')
     <div class="flex justify-between items-center mb-8">
-        <h1 class="text-2xl font-semibold">{{__('Articles')}}</h1>
-        <a href="" class="btn-primary">{{__('Create')}}</a>
+        <div>
+            <h1 class="text-2xl font-semibold">
+                {{__('Articles')}}
+            </h1>
+            <p class="text-xs uppercase opacity-60">{{$posts->total()}} @choice('article|articles to show',$posts->total())</p>
+        </div>
+        @if(request('trashed', '0') === '1')
+            <form action="{{route('posts.empty-trash')}}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn-primary">{{__('Empty trash')}}</button>
+            </form>
+        @else
+            <a href="{{route('posts.create')}}" class="btn-primary">{{__('Create')}}</a>
+        @endif
     </div>
     <table class="admin-table">
         <thead>
         <tr>
-            <th><a href="" class="style-none">{{__('Title')}}</a></th>
-            <th>Categoria</th>
-            <th>Data</th>
+            <th>
+                <a href="{{$getOrderByLink('title')}}" class="style-none">
+                    @if($order_by === 'title')
+                        {!! $order !!}
+                    @endif
+                    {{__('Title')}}
+                </a>
+            </th>
+
+            <th>{{__('Category')}}</th>
+            <th>
+                <a href="{{$getOrderByLink('created_at')}}" class="style-none">
+                    @if($order_by === 'created_at')
+                        {!! $order !!}
+                    @endif
+                    {{__('Date')}}
+                </a>
+            </th>
+            <th>
+                <a href="{{$getOrderByLink('status')}}" class="style-none">
+                    @if($order_by === 'status')
+                        {!! $order !!}
+                    @endif
+                    {{__('Status')}}
+                </a>
+            </th>
+
             <th></th>
         </tr>
         </thead>
@@ -17,9 +54,13 @@
         @foreach($posts as $post)
             <tr>
                 <td>
-                    <a href="{{route('posts.edit', $post)}}" class="style-none">
+                    @if(request('trashed','0') === '1')
                         {{$post->title}}
-                    </a>
+                    @else
+                        <a href="{{route('posts.edit', $post)}}" class="style-none">
+                            {{$post->title}}
+                        </a>
+                    @endif
                 </td>
                 <td>
                     {{$post->category->title}}
@@ -27,21 +68,29 @@
                 <td>
                     {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->created_at)->format('d/m/Y')}}
                 </td>
-                <td class="flex justify-center items-center gap-4">
-                    <a href="{{route('posts.edit', $post)}}" class="style-none block">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" class="w-4 h-4 fill-white dark:fill-slate-900 stroke-slate-900 dark:stroke-white">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"/>
-                        </svg>
-                    </a>
-                    <form action="{{route('posts.destroy', $post)}}">
+                <td>
+                    {{ucfirst(__($post->status))}}
+                </td>
+
+                <td class="flex justify-end items-center gap-8">
+                    @if(request('trashed','0') === '1')
+                        <form action="{{route('posts.revive', $post)}}" method="POST" class="m-0">
+                            @csrf
+                            <button title="{{__('Restore article')}}" type="submit" class="block cursor-pointer hover:text-red-500 dark:hover:text-red-400 duration-300">
+                                <i class="fa-solid fa-recycle"></i>
+                            </button>
+                        </form>
+
+                    @else
+                        <a title="{{__('Edit post')}}" href="{{route('posts.edit', $post)}}" class="style-none block hover:text-sky-500 dark:hover:text-sky-400 duration-300">
+                            <i class="fa-solid fa-pencil"></i>
+                        </a>
+                    @endif
+                    <form action="{{route('posts.destroy', $post)}}" method="POST" class="m-0">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="block cursor-pointer">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" class="w-4 h-4 stroke-slate-900 fill-white dark:fill-slate-900 dark:stroke-white">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                      d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/>
-                            </svg>
+                        <button title="{{request('trashed','0') === '1'? __('Permanently deletes') : __('Move to trash')}}" type="submit" class="block cursor-pointer hover:text-red-500 dark:hover:text-red-400 duration-300">
+                            <i class="fa-regular fa-trash-can"></i>
                         </button>
                     </form>
                 </td>
@@ -49,5 +98,17 @@
         @endforeach
         </tbody>
     </table>
-
+    <div class="flex justify-between items-center mt-8">
+        <div>
+            @if(request('trashed', '0') === '0')
+                <a href="{{route('posts.index', ['trashed' => '1'])}}" class="btn-secondary text-xs">{{__('Show trashed')}}</a>
+            @else
+                <a href="{{route('posts.index', ['trashed' => '0'])}}" class="btn-secondary text-xs">{{__('Hide trashed')}}</a>
+            @endif
+        </div>
+        <div class="flex justify-end items-center gap-4 text-xs uppercase ">
+            @component('components.pagination', ['paginator' => $posts])
+            @endcomponent
+        </div>
+    </div>
 @endsection

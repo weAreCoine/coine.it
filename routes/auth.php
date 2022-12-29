@@ -62,5 +62,7 @@
 
     Route::middleware('auth')->prefix('dashboard')->group(function () {
         Route::resource('posts', PostController::class)->except('view');
+        Route::delete('posts/empty-trash', [PostController::class, 'emptyTrash'])->name('posts.empty-trash');
+        Route::post('posts/revive/{post}', [PostController::class, 'revive'])->name('posts.revive');
     });
 

@@ -5,6 +5,7 @@
     use App\Http\Requests\StorePostRequest;
     use App\Http\Requests\UpdatePostRequest;
     use App\Models\Post;
+    use Illuminate\Support\Arr;
 
     class PostController extends Controller
     {
@@ -15,9 +16,22 @@
          */
         public function index()
         {
+            $orderBy = request('order_by', 'created_at');
+            $order = request('order', 'desc');
 
             return view('Models.Post.index')->with([
-                'posts' => Post::orderBy(request('order_by', 'created_at'), request('order', 'desc'))->paginate()
+                'posts' => Post::whereTrashed(request('trashed', '0') === '1')->orderBy($orderBy, $order)->paginate(20),
+                'order_by' => $orderBy,
+                'order' => $order === 'desc' ? '<i class="fa-solid fa-angle-down mr-2"></i>' : '<i class="fa-solid fa-angle-up mr-2"></i>',
+                'getOrderByLink' => function (string $orderField) use ($order, $orderBy) {
+                    $newParameters['order_by'] = $orderField;
+                    if ($orderField !== $orderBy) {
+                        $newParameters['order'] = 'desc';
+                    } else {
+                        $newParameters['order'] = $order === 'desc' ? 'asc' : 'desc';
+                    }
+                    return route('posts.index', array_merge(request()->query(), $newParameters));
+                }
             ]);
         }
 
@@ -56,11 +70,13 @@
          * Show the form for editing the specified resource.
          *
          * @param \App\Models\Post $post
-         * @return \Illuminate\Http\Response
+         * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
          */
         public function edit(Post $post)
         {
-            //
+            return view('Models.Post.edit')->with([
+                'post' => $post
+            ]);
         }
 
         /**
@@ -75,14 +91,35 @@
             //
         }
 
+        public function emptyTrash()
+        {
+            Post::whereTrashed(true)->each(function (Post $post) {
+                $post->delete();
+            });
+            return redirect()->back();
+        }
+
+        public function revive(Post $post)
+        {
+            $post->trashed = false;
+            $post->save();
+            return redirect()->back();
+        }
+
         /**
          * Remove the specified resource from storage.
          *
          * @param \App\Models\Post $post
-         * @return \Illuminate\Http\Response
+         * @return \Illuminate\Http\RedirectResponse
          */
         public function destroy(Post $post)
         {
-            //
+            if ($post->trashed === true) {
+                $post->delete();
+            } else {
+                $post->trashed = true;
+                $post->save();
+            }
+            return redirect()->back();
         }
     }

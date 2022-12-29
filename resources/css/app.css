@@ -24,6 +24,7 @@
             }
         }
     }
+
 }
 
 @tailwind components;
@@ -96,7 +97,7 @@
 }
 
 .btn-secondary {
-    @apply pl-[1.5em] pr-[.5em] py-[.5em] rounded-full inline-block duration-300 border font-semibold border-sky-900;
+    @apply pl-[1.5em] pr-[.5em] py-[.5em] rounded-full inline-block duration-300 border font-semibold border-sky-900 dark:border-white;
 
     &::after {
         @apply inline-block ml-[.65em] text-orange-500 bg-white rounded-full duration-300;
@@ -169,17 +170,17 @@
 
     thead {
         > tr {
-            @apply bg-slate-100 dark:bg-slate-800 border-b-2 border-orange-500;
+            @apply border-b border-orange-500;
 
             > th {
-                @apply text-left py-4 first:pl-4 last:pr-4;
+                @apply text-left pt-4 pb-2 uppercase text-sm first:pl-4 last:pr-4;
             }
         }
     }
 
     tbody {
         > tr {
-            @apply even:bg-slate-50 dark:even:bg-slate-800 last:border-none border-b border-b-slate-300 dark:border-b-slate-700;
+            @apply last:border-none border-b border-b-slate-900/5 dark:border-b-white/5;
 
             &:last-child {
                 > td {
@@ -191,5 +192,16 @@
                 @apply py-4 last:pr-4 first:pl-4;
             }
         }
+    }
+}
+
+.admin-form {
+    label {
+        @apply text-xs uppercase font-medium tracking-widest opacity-60;
+
+    }
+
+    input {
+        @apply bg-transparent border-b border-white/50 block block w-full font-normal mt-1;
     }
 }

@@ -10,9 +10,13 @@
     @vite('resources/js/app.js')
     @vite('resources/css/app.css')
 </head>
-<body class="bg-slate-50 dark:bg-white/10">
-@yield('header')
-<main class="@yield('mainClasses') ">
+<body class="bg-slate-100 dark:bg-slate-900 flex justify-between">
+{{--<div class=" bg-slate-50 dark:bg-white/10 h-screen fixed top-0 left-0 w-1/5">--}}
+<div class="bg-slate-100 dark:bg-slate-900 min-w-[350px] h-screen">
+    @yield('navigation')
+</div>
+<main class="@yield('mainClasses') grow">
+    {{--<main class="@yield('mainClasses') ml-[20%]">--}}
     <div x-data="{visible : true}" x-show="visible" x-transition.opacity.duration.500ms @load.window="visible = false"
          class="fixed flex flex-col justify-center items-center top-0 left-0 h-screen w-screen bg-white dark:bg-slate-900 z-[99]">
         <div class="animate-pulse">
@@ -20,11 +24,7 @@
         </div>
     </div>
 
-    <div class=" bg-slate-50 dark:bg-white/10 h-screen fixed top-0 left-0 w-1/5">
-        @yield('navigation')
-    </div>
-
-    <div class="ml-[20%] bg-white px-8 mr-6 mt-6 py-6 rounded-xl ">
+    <div class="bg-white dark:bg-white/5 px-8 mx-6 mt-6 py-6 rounded-xl">
         @yield('content')
     </div>
 </main>
