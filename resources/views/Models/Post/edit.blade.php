@@ -3,7 +3,6 @@
     <script src="https://cdn.tiny.cloud/1/oxzo648ftzr93i4hao9t78ivk8jmrqiw0iexydyt5dvl0g0u/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 @endsection
 @section('content')
-    @dump(\App\Models\Post::validateSlug('caio'))
     <form id="delete" name="delete" action="{{route('posts.destroy', $post)}}" method="POST">
         @csrf
         @method('DELETE')
@@ -41,7 +40,7 @@
 
         </div>
         <div class="mt-16">
-            <textarea id="content" name="content" aria-label="{{__('Post content')}}">
+            <textarea id="content" name="content" aria-label="{{__('PostService content')}}">
                 {!! old('content', $post->content) !!}
             </textarea>
         </div>
@@ -74,7 +73,7 @@
                     <label for="category_id">{{__('Category')}}</label>
                     <select name="category_id" id="category_id">
                         @foreach(\App\Models\Category::all('id','title') as $category)
-                            <option value="{{$category->id}}" @selected(old('category_id', $post->category->id )=== $category->id)>{{$category->title}}</option>
+                            <option value="{{$category->id}}" @selected(old('category_id', $post->category->id??0 )=== $category->id)>{{$category->title}}</option>
                         @endforeach
                     </select>
                 </div>

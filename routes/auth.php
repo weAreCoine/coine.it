@@ -1,14 +1,15 @@
 <?php
 
-    use App\Http\Controllers\Auth\AuthenticatedSessionController;
-    use App\Http\Controllers\Auth\ConfirmablePasswordController;
-    use App\Http\Controllers\Auth\EmailVerificationNotificationController;
-    use App\Http\Controllers\Auth\EmailVerificationPromptController;
-    use App\Http\Controllers\Auth\NewPasswordController;
-    use App\Http\Controllers\Auth\PasswordController;
-    use App\Http\Controllers\Auth\PasswordResetLinkController;
-    use App\Http\Controllers\Auth\RegisteredUserController;
-    use App\Http\Controllers\Auth\VerifyEmailController;
+    use App\Http\Controllers\Auth\{AuthenticatedSessionController,
+        ConfirmablePasswordController,
+        EmailVerificationNotificationController,
+        EmailVerificationPromptController,
+        NewPasswordController,
+        PasswordController,
+        PasswordResetLinkController,
+        RegisteredUserController,
+        VerifyEmailController
+    };
     use App\Http\Controllers\PostController;
     use Illuminate\Support\Facades\Route;
 
@@ -61,8 +62,11 @@
     });
 
     Route::middleware('auth')->prefix('dashboard')->group(function () {
-        Route::resource('posts', PostController::class)->except('view');
         Route::delete('posts/empty-trash', [PostController::class, 'emptyTrash'])->name('posts.empty-trash');
         Route::post('posts/revive/{post}', [PostController::class, 'revive'])->name('posts.revive');
+        Route::resource('posts', PostController::class)->except('view');
+        Route::get('get-posts', [\App\Services\PostService::class, 'getPosts']);
     });
+
+
 
