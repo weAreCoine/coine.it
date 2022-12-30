@@ -10,7 +10,7 @@
         @if(request('trashed', '0') === '1')
             <form action="{{route('posts.empty-trash')}}" method="POST">
                 @csrf
-                @method('DELETE')
+                @method('delete')
                 <button type="submit" class="btn-primary">{{__('Empty trash')}}</button>
             </form>
         @else
@@ -63,7 +63,7 @@
                     @endif
                 </td>
                 <td>
-                    {{$post->category->title}}
+                    {{$post->category->title??''}}
                 </td>
                 <td>
                     {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->created_at)->format('d/m/Y')}}

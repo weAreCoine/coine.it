@@ -39,10 +39,16 @@
         /**
          * Show the form for creating a new resource.
          *
-         * @return \Illuminate\Http\Response
+         * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
          */
         public function create()
         {
+            $post = new Post([
+                'title' => __('Draft post'),
+                'slug' => Post::validateSlug('draft-post')
+            ]);
+            $post->save();
+            return redirect(route('posts.edit', $post));
         }
 
         /**
@@ -113,7 +119,7 @@
 
         public function emptyTrash()
         {
-            Post::whereTrashed(true)->each(function (Post $post) {
+            Post::whereTrashed(1)->each(function (Post $post) {
                 $post->delete();
             });
             return redirect()->back();
@@ -121,7 +127,7 @@
 
         public function revive(Post $post)
         {
-            $post->trashed = false;
+            $post->trashed = 0;
             $post->save();
             return redirect()->back();
         }
@@ -134,10 +140,10 @@
          */
         public function destroy(Post $post)
         {
-            if ($post->trashed === true) {
+            if ($post->trashed === 1) {
                 $post->delete();
             } else {
-                $post->trashed = true;
+                $post->trashed = 1;
                 $post->save();
             }
             return redirect()->back();

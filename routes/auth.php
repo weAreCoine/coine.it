@@ -10,6 +10,7 @@
     use App\Http\Controllers\Auth\RegisteredUserController;
     use App\Http\Controllers\Auth\VerifyEmailController;
     use App\Http\Controllers\PostController;
+    use GuzzleHttp\Client;
     use Illuminate\Support\Facades\Route;
 
     Route::middleware('guest')->group(function () {
@@ -61,8 +62,23 @@
     });
 
     Route::middleware('auth')->prefix('dashboard')->group(function () {
-        Route::resource('posts', PostController::class)->except('view');
         Route::delete('posts/empty-trash', [PostController::class, 'emptyTrash'])->name('posts.empty-trash');
         Route::post('posts/revive/{post}', [PostController::class, 'revive'])->name('posts.revive');
+        Route::resource('posts', PostController::class)->except('view');
+        Route::get('get-posts', function () {
+            $client = new Client();
+            $headers = [
+                'Cookie' => 'PHPSESSID=25747861ad3f5ccef3e08c8337a0ef94'
+            ];
+            $request = new \GuzzleHttp\Psr7\Request('GET', 'https://www.coine.it/wp-json/wp/v2/posts?per_page=99&page=1', $headers);
+            $res = $client->sendAsync($request)->wait();
+
+            foreach (json_decode($res->getBody()) as $wpPost) {
+                dump(\App\Services\PostService::sanitizeContent($wpPost->content->rendered));
+            }
+
+        });
     });
+
+
 
