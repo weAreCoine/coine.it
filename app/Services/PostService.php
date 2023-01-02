@@ -2,23 +2,96 @@
 
     namespace App\Services;
 
+    use App\Models\Category;
+    use App\Models\Post;
+    use App\Models\Tag;
     use GuzzleHttp\Client;
     use GuzzleHttp\Psr7\Request;
 
     class PostService
     {
 
-        public static function getPosts(): void
-        {
-            $client = new Client();
-            $headers = [
-                'Cookie' => 'PHPSESSID=25747861ad3f5ccef3e08c8337a0ef94'
-            ];
-            $request = new Request('GET', 'https://www.coine.it/wp-json/wp/v2/posts?per_page=99&page=1', $headers);
-            $res = $client->sendAsync($request)->wait();
+        static array $oldToNewCategoriesID = [];
+        static array $oldToNewCTagID = [];
+        static string $baseUrl = 'https://www.coine.it/wp-json/wp/v2';
 
-            foreach (json_decode($res->getBody()) as $wpPost) {
-                dump(self::sanitizeContent($wpPost->content->rendered));
+        public static function seed(): void
+        {
+            self::createTags();
+            self::createCategories();
+            self::createPosts();
+        }
+
+        protected function getMedia()
+        {
+            return self::call('/media?per_page=99&page=1&order_by=date&order=asc');
+        }
+
+        protected static function getCategories()
+        {
+            return self::call('/categories?per_page=99&page=1&order_by=date&order=asc');
+        }
+
+        public static function createCategories(): void
+        {
+            foreach (self::getCategories() as $wpCat) {
+                $data = [
+                    'title' => $wpCat->name,
+                    'slug' => $wpCat->slug,
+                    'language_id' => 1,
+                ];
+
+                $category = new Category($data);
+                $category->save();
+                self::$oldToNewCategoriesID[$wpCat->id] = $category->id;
+            }
+        }
+
+        protected function getTags()
+        {
+            return self::call('/tags?per_page=99&page=1&order_by=date&order=asc');
+        }
+
+        public static function createTags(): void
+        {
+            foreach (self::getTags() as $wpTag) {
+                $data = [
+                    'title' => $wpTag->name,
+                    'slug' => $wpTag->slug,
+                    'language_id' => 1,
+                ];
+
+                $category = new Tag($data);
+                $category->save();
+                self::$oldToNewCTagID[$wpTag->id] = $category->id;
+            }
+
+        }
+
+        protected function getPosts()
+        {
+            return self::call('/posts?per_page=99&page=1&order_by=date&order=asc');
+        }
+
+        public static function createPosts(): void
+        {
+
+            foreach (self::getPosts() as $wpPost) {
+                $data = [
+                    'created_at' => $wpPost->date,
+                    'updated_at' => $wpPost->modified,
+                    'title' => $wpPost->title->rendered,
+                    'slug' => $wpPost->slug,
+                    'content' => self::sanitizeContent($wpPost->content->rendered),
+                    'status' => $wpPost->status === 'publish' ? 'publish' : 'draft',
+                    'user_id' => 1,
+                    'category_id' => self::$oldToNewCategoriesID[$wpPost->categories[0]]
+                ];
+                $post = new Post($data);
+                $post->save();
+                foreach ($wpPost->tags as $oldTagId) {
+                    $post->tags()->attach(self::$oldToNewCTagID[$oldTagId]);
+                }
             }
         }
 
@@ -287,5 +360,16 @@
             return str_replace("\n", '<WPPreserveNewline />', $matches[0]);
         }
 
+
+        protected static function call(string $url)
+        {
+            $client = new Client();
+            $headers = [
+                'Cookie' => 'PHPSESSID=25747861ad3f5ccef3e08c8337a0ef94'
+            ];
+            $request = new Request('GET', self::$baseUrl . $url, $headers);
+            $res = $client->sendAsync($request)->wait();
+            return json_decode($res->getBody());
+        }
 
     }

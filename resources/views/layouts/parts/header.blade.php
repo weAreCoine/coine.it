@@ -29,7 +29,7 @@
                     <li @class(['current' => request()->routeIs('home')])><a href="{{route('home')}}">Home</a></li>
                     <li><a href="{{route('home')}}">About</a></li>
                     <li><a href="{{route('home')}}">Works</a></li>
-                    <li><a href="{{route('home')}}">Blog</a></li>
+                    <li><a href="{{route('blog')}}">Blog</a></li>
                     <li @class(['current' => request()->routeIs('new-project')])><a @class(['btn-primary', 'inverse' => !$light]) href="{{route('new-project')}}">Start a Project</a></li>
                 </ul>
             </navigation>

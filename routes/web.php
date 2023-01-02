@@ -33,5 +33,6 @@
     });
 
     Route::resource('posts', PostController::class)->only('view');
+    Route::get('blog', [PostController::class, 'archive'])->name('blog');
 
     require __DIR__ . '/auth.php';
