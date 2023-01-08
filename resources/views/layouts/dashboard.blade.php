@@ -23,6 +23,10 @@
                 <i class="fa-solid fa-tags text-sm"></i>
                 <a href="#" class="">{{__('Tags')}}</a>
             </li>
+            <li class="flex items-center gap-4 mb-4 last:mb-0">
+                <i class="fa-solid fa-photo-film text-sm"></i>
+                <a href="{{route('uploads.index')}}" class="">{{__('Media')}}</a>
+            </li>
         </ul>
     </nav>
 @endsection

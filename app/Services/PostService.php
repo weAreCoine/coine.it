@@ -47,7 +47,7 @@
             }
         }
 
-        protected function getTags()
+        protected static function getTags()
         {
             return self::call('/tags?per_page=99&page=1&order_by=date&order=asc');
         }
@@ -68,7 +68,7 @@
 
         }
 
-        protected function getPosts()
+        protected static function getPosts()
         {
             return self::call('/posts?per_page=99&page=1&order_by=date&order=asc');
         }

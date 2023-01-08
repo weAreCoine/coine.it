@@ -13,7 +13,7 @@
 </head>
 <body class="bg-slate-100 dark:bg-slate-900 flex justify-between">
 {{--<div class=" bg-slate-50 dark:bg-white/10 h-screen fixed top-0 left-0 w-1/5">--}}
-<div class="bg-slate-100 dark:bg-slate-900 min-w-[350px] h-screen sticky top-0">
+<div class="bg-slate-100 dark:bg-slate-900 lg:min-w-[250px] h-screen sticky top-0">
     @yield('navigation')
 </div>
 <main class="@yield('mainClasses') grow">

@@ -26,18 +26,22 @@
         <div class="mt-8 border bg-white dark:border-none dark:bg-slate-800 rounded-lg p-6">
             <h2 class="mb-6 uppercase font-bold text-lg">{{__('Article details')}}</h2>
             <div class="mb-4">
-                <label for="title">{{__('Title')}}</label>
-                <input type="text" id="title" name="title" class="text-2xl" placeholder=" " value="{{old('title', $post->title)}}">
+                <label class="uppercase font-bold text-xs" for="title">{{__('Title')}}</label>
+                <input type="text" id="title" name="title" class="text-2xl w-full bg-transparent outline-0" placeholder=" " value="{{old('title', $post->title)}}">
             </div>
             <div class="mb-4">
-                <label for="slug">{{__('Slug')}}</label>
-                <input type="text" id="slug" name="slug" placeholder=" " value="{{old('slug', $post->slug)}}">
+                <label class="uppercase font-bold text-xs" for="slug">{{__('Slug')}}</label>
+                <input type="text" class="w-full bg-transparent outline-0" id="slug" name="slug" placeholder=" " value="{{old('slug', $post->slug)}}">
             </div>
-            <div>
-                <label for="description">{{__('Description')}}</label>
-                <textarea id="description" name="description">{{old('description', $post->description)}}</textarea>
+            <div class="mb-4">
+                <label class="uppercase font-bold text-xs" for="description">{{__('Description')}}</label>
+                <textarea id="description" class="w-full bg-transparent outline-0" name="description">{{old('description', $post->description)}}</textarea>
             </div>
 
+            <div>
+                <label class="uppercase font-bold text-xs" for="featured_image">{{__('Featured image')}}</label>
+                <input type="file" accept="image/png, image/jpeg" name="featured_image" class="w-full mt-2" id="featured_image ">
+            </div>
         </div>
         <div class="mt-16">
             <textarea id="content" name="content" aria-label="{{__('PostService content')}}">
@@ -48,13 +52,13 @@
             <div class="border bg-white dark:border-none dark:bg-slate-800 p-6 rounded-lg">
                 <h2 class="mb-6 uppercase font-bold text-lg">{{__('SEO Settings')}}</h2>
                 <div class="mb-4" x-data="{content: '{{old('seo_title', $post->seo_title)}}'}">
-                    <label for="seo_title">{{__('SEO Title')}}</label>
-                    <input type="text" id="seo_title" name="seo_title" placeholder=" " x-model="content">
+                    <label class="uppercase font-bold text-xs" for="seo_title">{{__('SEO Title')}}</label>
+                    <input type="text" class="w-full bg-transparent outline-0" id="seo_title" name="seo_title" placeholder=" " x-model="content">
                     <p x-text="`${content.length} of 50`" class="text-xs mt-2 text-right opacity-60"></p>
                 </div>
                 <div x-data="{content: '{{old('seo_description', $post->seo_description)}}'}">
-                    <label for="seo_description">{{__('SEO Title')}}</label>
-                    <textarea x-model="content" type="text" id="seo_description" name="seo_description" placeholder=" ">
+                    <label class="uppercase font-bold text-xs" for="seo_description">{{__('SEO Title')}}</label>
+                    <textarea class="w-full bg-transparent outline-0" x-model="content" type="text" id="seo_description" name="seo_description" placeholder=" ">
                     </textarea>
                     <p x-text="`${content.length} of 150`" class="text-xs mt-2 text-right opacity-60"></p>
                 </div>
@@ -62,16 +66,16 @@
             <div class="border bg-white dark:border-none dark:bg-slate-800 p-6 rounded-lg">
                 <h2 class="mb-6 uppercase font-bold text-lg">{{__('Categorization')}}</h2>
                 <div class="mb-4">
-                    <label for="language">{{__('Language')}}</label>
-                    <select name="language_code" id="language_code">
+                    <label class="uppercase font-bold text-xs" for="language">{{__('Language')}}</label>
+                    <select class="w-full bg-transparent outline-0" name="language_code" id="language_code">
                         @foreach(\App\Models\Language::all('id','language_code') as $language)
                             <option value="{{$language->id}}" @selected(old('language_code', $post->language_id )=== $language->id)>{{\App\Models\Language::getTitle($language->language_code)}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="mb-4">
-                    <label for="category_id">{{__('Category')}}</label>
-                    <select name="category_id" id="category_id">
+                    <label class="uppercase font-bold text-xs" for="category_id">{{__('Category')}}</label>
+                    <select class="w-full bg-transparent outline-0" name="category_id" id="category_id">
                         @foreach(\App\Models\Category::all('id','title') as $category)
                             <option value="{{$category->id}}" @selected(old('category_id', $post->category->id??0 )=== $category->id)>{{$category->title}}</option>
                         @endforeach
@@ -83,7 +87,7 @@
 					$tags = array_combine($tags->map(fn(\App\Models\Tag $tag) => $tag->id)->toArray(), $tags->map(fn(\App\Models\Tag $tag) => $tag->title)->toArray());
                 @endphp
                 <div class="mb-4">
-                    <label for="tags">{{__('Tags')}}</label>
+                    <label class="uppercase font-bold text-xs" for="tags">{{__('Tags')}}</label>
                     <script>
                         const tagsData = () => ({
                             selectedTags: JSON.parse('<?= json_encode($selectedTags) ?>'),
