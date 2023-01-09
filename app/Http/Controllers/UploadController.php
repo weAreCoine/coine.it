@@ -5,7 +5,11 @@
     use App\Http\Requests\StoreUploadRequest;
     use App\Http\Requests\UpdateUploadRequest;
     use App\Models\Upload;
+    use Carbon\Carbon;
     use Illuminate\Http\Response;
+    use Illuminate\Http\UploadedFile;
+    use Illuminate\Support\Str;
+    use Intervention\Image\Facades\Image;
 
     class UploadController extends Controller
     {
@@ -28,18 +32,47 @@
          */
         public function create()
         {
-            //
         }
 
         /**
          * Store a newly created resource in storage.
          *
          * @param \App\Http\Requests\StoreUploadRequest $request
-         * @return Response
+         * @return \Illuminate\Http\RedirectResponse
          */
         public function store(StoreUploadRequest $request)
         {
-            //
+            /**
+             * @var  UploadedFile $file
+             */
+            $file = $request->validated()['file'];
+            $extension = $file->extension();
+            $fileName = Str::slug($file->getClientOriginalName());
+            $fileName = Str::substr($fileName, 0, -strlen($extension));
+            $data = [
+                'description' => $request->get('description', ''),
+                'alt' => $request->get('alt', ''),
+            ];
+            if (str_starts_with($file->getMimeType(), 'image')) {
+                $image = Image::make($file);
+                $data['width'] = $image->width();
+                $data['height'] = $image->height();
+            }
+            $backup = $fileName;
+            while (Upload::where('file_name', $fileName)->exists()) {
+                static $i = 0;
+                $i++;
+                $fileName = $backup . "_$i";
+            }
+            $fileName .= ".$extension";
+
+            $path = implode('/', [config('app.asset_url'), Carbon::now()->format('Y/m')]);
+            $file->move($path, $fileName);
+            $data['file_name'] = $fileName;
+            $data['url'] = url(implode('/', [$path, $fileName]));
+
+            $upload = (new Upload($data))->save();
+            return redirect()->back();
         }
 
         /**

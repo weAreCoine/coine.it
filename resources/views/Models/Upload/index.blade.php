@@ -12,13 +12,14 @@
 
     <section id="add-new-media" class="fixed top-0 left-0 w-screen h-screen bg-white/10 backdrop-blur-sm z-50">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-[50%] bg-white rounded-lg shadow-xl p-6">
-            <form action="{{route('uploads.create')}}" method="get">
+            <form action="{{route('uploads.store')}}" method="post" enctype="multipart/form-data">
+                @csrf
                 <h2 class="text-2xl font-semibold">
                     {{__('Add media file')}}
                 </h2>
                 <div class="mb-4">
                     <label class="uppercase font-bold text-xs" for="file">{{__('File to upload')}}</label>
-                    <input type="file" accept="image/png, image/jpeg" class="w-full bg-transparent outline-0" id="file" name="file" placeholder=" " value="{{old('name')}}">
+                    <input type="file" accept="image/png, image/jpeg" class="w-full bg-transparent outline-0" id="file" name="file" value="{{old('file')}}">
                 </div>
                 <div class="mb-4">
                     <label class="uppercase font-bold text-xs" for="name">{{__('Name')}}</label>
