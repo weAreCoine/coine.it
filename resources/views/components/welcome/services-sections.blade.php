@@ -1,13 +1,13 @@
-<section class="container my-32 " aria-labelledby="section-2">
+<section id="service__section" class="container py-32 " aria-labelledby="section-2">
     <div class="services">
-        <p class="uppercase mb-4 text-orange-500 tracking-widest font-medium text-2xl">{{__('Cosa Offriamo, Come Operiamo')}}</p>
+        <p class="uppercase mb-4 text-accent-500 tracking-widest font-medium text-2xl">{{__('Cosa Offriamo, Come Operiamo')}}</p>
         <h2 id="section-2"
             class="text-7xl font-semibold w-3/5">{{__('Le nostre specializzazioni al tuo servizio, con una rete di esperti pronta a soddisfare ogni tua esigenza.')}}</h2>
     </div>
-    <div class="grid grid-cols-4 items-center gap-y-32 mt-32 text-slate-900 dark:text-white">
+    <div class="grid grid-cols-4 items-center gap-y-32 mt-32 text-darkBackground-900 dark:text-white">
         <div
             id="long__service__title__1"
-            class="bg-gradient-to-b from-transparent to-slate-100 dark:from-slate-900 dark:to-slate-800 rounded-l-2xl h-full flex flex-col justify-end py-6 pl-6 pr-12 border-r-4 border-orange-500">
+            class="bg-gradient-to-b from-transparent to-darkBackground-100 dark:from-darkBackground-900 dark:to-darkBackground-800 rounded-l-2xl h-full flex flex-col justify-end py-6 pl-6 pr-12 border-r-4 border-accent-500">
             <h2 class="text-6xl text-right font-semibold">{!! __('Sviluppo Web & App Mobile') !!}</h2>
         </div>
         <div id="long__service__body__1" class="text-3xl leading-tight col-span-3 pl-12">
@@ -24,7 +24,7 @@
         </div>
         <div
             id="long__service__title__2"
-            class="bg-gradient-to-b from-transparent to-slate-100 dark:from-slate-900 dark:to-slate-800 rounded-l-2xl h-full flex flex-col justify-end py-6 pl-6 pr-12 border-r-4 border-orange-500">
+            class="bg-gradient-to-b from-transparent to-darkBackground-100 dark:from-darkBackground-900 dark:to-darkBackground-800 rounded-l-2xl h-full flex flex-col justify-end py-6 pl-6 pr-12 border-r-4 border-accent-500">
             <h2 class="text-6xl text-right font-semibold">{{__('Online Marketing')}}</h2>
         </div>
         <div id="long__service__body__2" class="text-3xl leading-tight col-span-3 pl-12">
@@ -41,7 +41,7 @@
         </div>
         <div
             id="long__service__title__3"
-            class="bg-gradient-to-b from-transparent to-slate-100 dark:from-slate-900 dark:to-slate-800 rounded-l-2xl h-full flex flex-col justify-end py-6 pl-6 pr-12 border-r-4 border-orange-500">
+            class="bg-gradient-to-b from-transparent to-darkBackground-100 dark:from-darkBackground-900 dark:to-darkBackground-800 rounded-l-2xl h-full flex flex-col justify-end py-6 pl-6 pr-12 border-r-4 border-accent-500">
             <h2 class="text-6xl text-right font-semibold">{{__('Cultural localization')}}</h2>
         </div>
         <div id="long__service__body__3" class="text-3xl leading-tight col-span-3 pl-12">

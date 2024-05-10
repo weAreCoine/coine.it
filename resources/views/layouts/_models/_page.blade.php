@@ -15,9 +15,9 @@
 </head>
 <body class="dark">
 @yield('header')
-<main class="@yield('mainClasses') bg-white dark:bg-slate-900">
+<main class="@yield('mainClasses') bg-white dark:bg-darkBackground-900">
     <div x-data="{visible : true}" x-show="visible" x-transition.opacity.duration.500ms @load.window="visible = false"
-         class="fixed flex flex-col justify-center items-center top-0 left-0 h-screen w-screen bg-white dark:bg-slate-900 z-[99]">
+         class="fixed flex flex-col justify-center items-center top-0 left-0 h-screen w-screen bg-white dark:bg-darkBackground-900 z-[99]">
         <div class="animate-pulse">
             @include('components.application-logo')
 
@@ -25,7 +25,7 @@
     </div>
     @yield('content')
 </main>
-<footer class="dark:bg-slate-900">
+<footer class="dark:bg-darkBackground-900">
     @include('layouts.parts.colophon')
 </footer>
 </body>

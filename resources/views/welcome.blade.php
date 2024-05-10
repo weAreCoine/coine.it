@@ -5,11 +5,11 @@
     <x-welcome.above-the-fold/>
     <section
         id="method"
-        class="from-slate-100 to-white bg-gradient-to-b dark:from-slate-800 dark:to-slate-900"
+        class="from-darkBackground-100 to-white bg-gradient-to-b dark:from-darkBackground-800 dark:to-darkBackground-900"
         aria-labelledby="section-1">
         <div class="py-32 container mx-auto">
             <div class="max-w-[75%] mx-auto">
-                <p class="uppercase mb-4 text-orange-500 tracking-widest font-medium text-2l">{{__('Il metodo di lavoro')}}</p>
+                <p class="uppercase mb-4 text-accent-500 tracking-widest font-medium text-2l">{{__('Il metodo di lavoro')}}</p>
                 <h2 id="section-1" class="text-7xl font-semibold">{{__('Strategie basate su dati concreti')}}</h2>
                 <div class="leading-loose">
                     <p class="text-4xl mt-12">{{__('Basiamo ogni strategia su dati solidi e verificabili per garantirti decisioni precise fin dal primo giorno.')}}</p>
@@ -22,8 +22,9 @@
         </div>
     </section>
     <x-welcome.services-sections/>
-    <section class="bg-sky-900 dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-800 py-32 text-white"
-             aria-labelledby="section-4">
+    <section
+        class="bg-sky-900 dark:bg-gradient-to-b dark:from-darkBackground-900 dark:to-darkBackground-800 py-32 text-white"
+        aria-labelledby="section-4">
         <div class="container">
             <h2 id="section-4"
                 class="text-center text-8xl font-semibold w-5/6 mx-auto min-h-[4em]"></h2>
@@ -35,10 +36,11 @@
             </div>
         </div>
     </section>
-    <section class="dark:bg-gradient-to-b dark:from-slate-800 dark:to-slate-900 py-32" aria-labelledby="section-6">
+    <section class="dark:bg-gradient-to-b dark:from-darkBackground-800 dark:to-darkBackground-900 py-32"
+             aria-labelledby="section-6">
         <div
             id="bulbs__container"
-            class="container bg-gradient-to-br from-transparent to-slate-100 dark:to-slate-800 dark:from-transparent py-16 rounded-2xl dark:text-white">
+            class="container bg-gradient-to-br from-transparent to-darkBackground-100 dark:to-darkBackground-800 dark:from-transparent py-16 rounded-2xl dark:text-white">
             <div>
                 <img src="{{asset('storage/images/home/home-ideas.png')}}"
                      alt="{{__('Collabora con Coiné')}}"

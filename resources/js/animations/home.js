@@ -157,7 +157,7 @@ export default function homeAnimations() {
             invalidateOnRefresh: true,
         }
     },);
-    
+
     gsap.from('#bulbs', {
         opacity: 0,
         y: "-70%",
@@ -168,6 +168,29 @@ export default function homeAnimations() {
             end: 'top 30%',
             scrub: true,
             invalidateOnRefresh: true,
+        }
+    });
+
+    gsap.timeline({
+        scrollTrigger: {
+            trigger: '#service__section',
+            start: `top ${document.querySelector('header').getBoundingClientRect().height}`,
+            end: 'bottom top',
+            scrub: 1,
+            pin: true,
+            anticipatePin: true,
+            invalidateOnRefresh: true,
+            markers: true,
+            // snap: {
+            //     snapTo: [0, .3333, .6666, 1],
+            //     duration: 0,
+            //     directional: true,
+            // },
+            // onUpdate({progress}) {
+            //     let currentRealTab = Math.floor(progress / .33);
+            //     console.log(currentRealTab);
+            // }
+
         }
     });
 }

@@ -3,8 +3,8 @@ $light = $light ?? false;
 ?>
 <header @class([
     'fixed top-0 left-0 w-full backdrop-blur-sm z-50',
-    'bg-sky-900 dark:bg-slate-800' => !$light,
-    'bg-white/90  dark:bg-slate-900/90' => $light,
+    'bg-sky-900 dark:bg-darkBackground-800' => !$light,
+    'bg-white/90  dark:bg-darkBackground-900/90' => $light,
 ])>
     @if($isLandingPage ?? false === true)
         <div class="container py-8 grid grid-cols-3 gap-8 items-center">

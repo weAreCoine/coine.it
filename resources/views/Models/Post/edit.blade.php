@@ -1,6 +1,7 @@
 @extends('dashboard')
 @section('headScripts')
-    <script src="https://cdn.tiny.cloud/1/oxzo648ftzr93i4hao9t78ivk8jmrqiw0iexydyt5dvl0g0u/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/oxzo648ftzr93i4hao9t78ivk8jmrqiw0iexydyt5dvl0g0u/tinymce/6/tinymce.min.js"
+            referrerpolicy="origin"></script>
 @endsection
 @section('content')
     <form id="delete" name="delete" action="{{route('posts.destroy', $post)}}" method="POST">
@@ -10,7 +11,8 @@
     <form action="{{route('posts.update', $post)}}" method="POST" class="admin-form">
         @csrf
         @method('PUT')
-        <div class="flex justify-between items-center gap-16 sticky top-2 bg-white border dark:border-none dark:bg-slate-800 p-4 rounded-lg">
+        <div
+            class="flex justify-between items-center gap-16 sticky top-2 bg-white border dark:border-none dark:bg-darkBackground-800 p-4 rounded-lg">
             <h1 class="text-2xl font-semibold">
                 {{__('Edit article')}}
             </h1>
@@ -23,24 +25,28 @@
                 </button>
             </div>
         </div>
-        <div class="mt-8 border bg-white dark:border-none dark:bg-slate-800 rounded-lg p-6">
+        <div class="mt-8 border bg-white dark:border-none dark:bg-darkBackground-800 rounded-lg p-6">
             <h2 class="mb-6 uppercase font-bold text-lg">{{__('Article details')}}</h2>
             <div class="mb-4">
                 <label class="uppercase font-bold text-xs" for="title">{{__('Title')}}</label>
-                <input type="text" id="title" name="title" class="text-2xl w-full bg-transparent outline-0" placeholder=" " value="{{old('title', $post->title)}}">
+                <input type="text" id="title" name="title" class="text-2xl w-full bg-transparent outline-0"
+                       placeholder=" " value="{{old('title', $post->title)}}">
             </div>
             <div class="mb-4">
                 <label class="uppercase font-bold text-xs" for="slug">{{__('Slug')}}</label>
-                <input type="text" class="w-full bg-transparent outline-0" id="slug" name="slug" placeholder=" " value="{{old('slug', $post->slug)}}">
+                <input type="text" class="w-full bg-transparent outline-0" id="slug" name="slug" placeholder=" "
+                       value="{{old('slug', $post->slug)}}">
             </div>
             <div class="mb-4">
                 <label class="uppercase font-bold text-xs" for="description">{{__('Description')}}</label>
-                <textarea id="description" class="w-full bg-transparent outline-0" name="description">{{old('description', $post->description)}}</textarea>
+                <textarea id="description" class="w-full bg-transparent outline-0"
+                          name="description">{{old('description', $post->description)}}</textarea>
             </div>
 
             <div>
                 <label class="uppercase font-bold text-xs" for="featured_image">{{__('Featured image')}}</label>
-                <input type="file" accept="image/png, image/jpeg" name="featured_image" class="w-full mt-2" id="featured_image ">
+                <input type="file" accept="image/png, image/jpeg" name="featured_image" class="w-full mt-2"
+                       id="featured_image ">
             </div>
         </div>
         <div class="mt-16">
@@ -50,27 +56,30 @@
             </textarea>
         </div>
         <div class="grid grid-cols-2 gap-6 mt-16">
-            <div class="border bg-white dark:border-none dark:bg-slate-800 p-6 rounded-lg">
+            <div class="border bg-white dark:border-none dark:bg-darkBackground-800 p-6 rounded-lg">
                 <h2 class="mb-6 uppercase font-bold text-lg">{{__('SEO Settings')}}</h2>
                 <div class="mb-4" x-data="{content: '{{old('seo_title', $post->seo_title)}}'}">
                     <label class="uppercase font-bold text-xs" for="seo_title">{{__('SEO Title')}}</label>
-                    <input type="text" class="w-full bg-transparent outline-0" id="seo_title" name="seo_title" placeholder=" " x-model="content">
+                    <input type="text" class="w-full bg-transparent outline-0" id="seo_title" name="seo_title"
+                           placeholder=" " x-model="content">
                     <p x-text="`${content.length} of 50`" class="text-xs mt-2 text-right opacity-60"></p>
                 </div>
                 <div x-data="{content: '{{old('seo_description', $post->seo_description)}}'}">
                     <label class="uppercase font-bold text-xs" for="seo_description">{{__('SEO Title')}}</label>
-                    <textarea class="w-full bg-transparent outline-0" x-model="content" type="text" id="seo_description" name="seo_description" placeholder=" ">
+                    <textarea class="w-full bg-transparent outline-0" x-model="content" type="text" id="seo_description"
+                              name="seo_description" placeholder=" ">
                     </textarea>
                     <p x-text="`${content.length} of 150`" class="text-xs mt-2 text-right opacity-60"></p>
                 </div>
             </div>
-            <div class="border bg-white dark:border-none dark:bg-slate-800 p-6 rounded-lg">
+            <div class="border bg-white dark:border-none dark:bg-darkBackground-800 p-6 rounded-lg">
                 <h2 class="mb-6 uppercase font-bold text-lg">{{__('Categorization')}}</h2>
                 <div class="mb-4">
                     <label class="uppercase font-bold text-xs" for="language">{{__('Language')}}</label>
                     <select class="w-full bg-transparent outline-0" name="language_code" id="language_code">
                         @foreach(\App\Models\Language::all('id','language_code') as $language)
-                            <option value="{{$language->id}}" @selected(old('language_code', $post->language_id )=== $language->id)>{{\App\Models\Language::getTitle($language->language_code)}}</option>
+                            <option
+                                value="{{$language->id}}" @selected(old('language_code', $post->language_id )=== $language->id)>{{\App\Models\Language::getTitle($language->language_code)}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -78,7 +87,8 @@
                     <label class="uppercase font-bold text-xs" for="category_id">{{__('Category')}}</label>
                     <select class="w-full bg-transparent outline-0" name="category_id" id="category_id">
                         @foreach(\App\Models\Category::all('id','title') as $category)
-                            <option value="{{$category->id}}" @selected(old('category_id', $post->category->id??0 )=== $category->id)>{{$category->title}}</option>
+                            <option
+                                value="{{$category->id}}" @selected(old('category_id', $post->category->id??0 )=== $category->id)>{{$category->title}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -109,13 +119,14 @@
                             }
                         });
                     </script>
-                    <div x-data="tagsData()" x-init="console.log(selectedTags)" class="flex flex-wrap gap-y-2 gap-x-4 h-32 overflow-y-auto mt-2">
+                    <div x-data="tagsData()" x-init="console.log(selectedTags)"
+                         class="flex flex-wrap gap-y-2 gap-x-4 h-32 overflow-y-auto mt-2">
                         <template x-for="(title, id) in tags" :key="id">
                             <div x-text="title"
                                  class="py-1 text-sm rounded-full cursor-pointer duration-300 px-4"
                                  :class="{
-                                    'bg-orange-500': isSelected(id),
-                                    'bg-slate-700': !isSelected(id)
+                                    'bg-accent-500': isSelected(id),
+                                    'bg-darkBackground-700': !isSelected(id)
                                  }"
                                  @click="toggle(id)"
                             ></div>

@@ -1,7 +1,7 @@
 @tailwind base;
 @layer base {
     body {
-        @apply subpixel-antialiased overflow-x-hidden text-slate-900 dark:text-slate-50 bg-white dark:bg-slate-900;
+        @apply subpixel-antialiased overflow-x-hidden text-darkBackground-900 dark:text-darkBackground-50 bg-white dark:bg-darkBackground-900;
         text-rendering: optimizeLegibility;
     }
 
@@ -10,11 +10,11 @@
             @apply duration-300 relative;
 
             &:before {
-                @apply content-[''] absolute h-0.5 w-full bottom-0 left-0 bg-slate-300;
+                @apply content-[''] absolute h-0.5 w-full bottom-0 left-0 bg-darkBackground-300;
             }
 
             &:after {
-                @apply content-[''] absolute h-0.5 w-0 bottom-0 left-0 bg-orange-500 duration-500;
+                @apply content-[''] absolute h-0.5 w-0 bottom-0 left-0 bg-accent-500 duration-500;
             }
 
             &:hover {
@@ -36,10 +36,10 @@
 }
 
 .btn-primary {
-    @apply text-white pl-[1.5em] pr-[.5em] py-[.5em] rounded-full inline-block duration-300 bg-sky-900 dark:bg-white dark:text-slate-900 font-semibold;
+    @apply text-white pl-[1.5em] pr-[.5em] py-[.5em] rounded-full inline-block duration-300 bg-sky-900 dark:bg-white dark:text-darkBackground-900 font-semibold;
 
     &::after {
-        @apply inline-block ml-[.65em] text-orange-500 bg-white rounded-full duration-300;
+        @apply inline-block ml-[.65em] text-accent-500 bg-white rounded-full duration-300;
         content: '\f35a';
         font: var(--fa-font-solid);
         font-size: 1.5em;
@@ -57,19 +57,19 @@
     }
 
     &[disabled] {
-        @apply bg-slate-400 text-slate-300;
+        @apply bg-darkBackground-400 text-darkBackground-300;
 
         &::after {
-            @apply text-slate-500 bg-slate-300;
+            @apply text-darkBackground-500 bg-darkBackground-300;
         }
     }
 }
 
 .back-button {
-    @apply text-white flex items-center justify-center pr-[.5em] sm:pr-[1.5em] pl-[.5em] py-[.5em] rounded-full inline-block duration-300 bg-sky-900 dark:bg-white dark:text-slate-900 font-semibold;
+    @apply text-white flex items-center justify-center pr-[.5em] sm:pr-[1.5em] pl-[.5em] py-[.5em] rounded-full inline-block duration-300 bg-sky-900 dark:bg-white dark:text-darkBackground-900 font-semibold;
 
     &::before {
-        @apply inline-block mr-0 sm:mr-[.65em] text-orange-500 bg-white rounded-full duration-300;
+        @apply inline-block mr-0 sm:mr-[.65em] text-accent-500 bg-white rounded-full duration-300;
         content: '\f359';
         font: var(--fa-font-solid);
         font-size: 1.5em;
@@ -87,10 +87,10 @@
     }
 
     &[disabled] {
-        @apply bg-slate-400 text-slate-300;
+        @apply bg-darkBackground-400 text-darkBackground-300;
 
         &::before {
-            @apply text-slate-500 bg-slate-300;
+            @apply text-darkBackground-500 bg-darkBackground-300;
         }
     }
 }
@@ -99,7 +99,7 @@
     @apply pl-[1.5em] pr-[.5em] py-[.5em] rounded-full inline-block duration-300 border font-semibold border-sky-900;
 
     &::after {
-        @apply inline-block ml-[.65em] text-orange-500 bg-white rounded-full duration-300;
+        @apply inline-block ml-[.65em] text-accent-500 bg-white rounded-full duration-300;
         content: '\f0a9';
         font: var(--fa-font-solid);
         font-size: 1.5em;
@@ -117,10 +117,10 @@
     }
 
     &[disabled] {
-        @apply bg-slate-400 text-slate-300;
+        @apply bg-darkBackground-400 text-darkBackground-300;
 
         &::after {
-            @apply text-slate-500 bg-slate-300;
+            @apply text-darkBackground-500 bg-darkBackground-300;
         }
     }
 
@@ -130,7 +130,7 @@
     @apply relative;
 
     input {
-        @apply w-full outline-none text-2xl border-b border-b-slate-300 duration-300 bg-transparent px-4 py-2 z-10;
+        @apply w-full outline-none text-2xl border-b border-b-darkBackground-300 duration-300 bg-transparent px-4 py-2 z-10;
 
         &:not(:placeholder-shown), &:focus, &:valid {
             @apply border-b-sky-900 dark:border-b-white;
@@ -142,7 +142,7 @@
     }
 
     label {
-        @apply absolute text-2xl left-4 right-4 top-2 text-slate-500 dark:text-slate-400 duration-500 cursor-text;
+        @apply absolute text-2xl left-4 right-4 top-2 text-darkBackground-500 dark:text-darkBackground-400 duration-500 cursor-text;
     }
 }
 
@@ -169,7 +169,7 @@
 
     thead {
         > tr {
-            @apply bg-slate-100 dark:bg-slate-800 border-b-2 border-orange-500;
+            @apply bg-darkBackground-100 dark:bg-darkBackground-800 border-b-2 border-accent-500;
 
             > th {
                 @apply text-left py-4 first:pl-4 last:pr-4;
@@ -179,7 +179,7 @@
 
     tbody {
         > tr {
-            @apply even:bg-slate-50 dark:even:bg-slate-800 last:border-none border-b border-b-slate-300 dark:border-b-slate-700;
+            @apply even:bg-darkBackground-50 dark:even:bg-darkBackground-800 last:border-none border-b border-b-darkBackground-300 dark:border-b-darkBackground-700;
 
             &:last-child {
                 > td {

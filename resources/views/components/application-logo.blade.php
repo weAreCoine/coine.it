@@ -1,15 +1,16 @@
 <?php
-    $fill = match (true) {
-            $forceLightColor ?? false => 'fill-white',
-            $forceDarkColor ?? false => 'fill-sky-900',
-        default => 'fill-sky-900 dark:fill-white'
-    };
-    if (empty($height)) {
-        $height = 'h-9';
-    }
+$fill = match (true) {
+        $forceLightColor ?? false => 'fill-white',
+        $forceDarkColor ?? false => 'fill-sky-900',
+    default => 'fill-sky-900 dark:fill-white'
+};
+if (empty($height)) {
+    $height = 'h-9';
+}
 ?>
 <a href="{{route('home')}}" class="app-logo">
-    <svg id="coine-logo" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 174.25 60.37" class="{{$height}} w-auto ">
+    <svg id="coine-logo" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 174.25 60.37"
+         class="{{$height}} w-auto ">
         <g id="Layer_1-2" data-name="Layer 1">
             <g>
                 <g>
@@ -23,7 +24,8 @@
                     <path class="{{$fill}}"
                           d="m142.18,41.66c0-11.59,8.27-18.74,16.85-18.74,10.17,0,15.22,7.4,15.22,17.15,0,1.91-.24,3.81-.44,4.68h-21.37c.95,5.18,4.5,7.56,9.27,7.56,2.7,0,5.13-.82,7.73-2.34l3.5,6.38c-3.66,2.53-8.44,4.02-12.67,4.02-10.18,0-18.07-6.89-18.07-18.71Zm23.02-3.91c0-3.93-1.71-6.76-5.94-6.76-3.34,0-6.23,2.24-6.95,6.76h12.89Zm-10.63-24.64l11.05-13.11,7.19,7.02-13.02,11.28-5.21-5.19Z"/>
                 </g>
-                <path class="fill-orange-500" d="m82.38,13.02c0-3.25,2.58-5.53,6.13-5.53s6.13,2.29,6.13,5.53-2.58,5.53-6.13,5.53-6.13-2.31-6.13-5.53Z"/>
+                <path class="fill-accent-500"
+                      d="m82.38,13.02c0-3.25,2.58-5.53,6.13-5.53s6.13,2.29,6.13,5.53-2.58,5.53-6.13,5.53-6.13-2.31-6.13-5.53Z"/>
             </g>
         </g>
     </svg>
