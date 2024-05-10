@@ -1,6 +1,6 @@
 <section
     id="above__the__fold"
-    class="bg-sky-900 dark:bg-slate-800 pt-20 pb-48 text-white min-h-screen flex flex-col justify-end gap-y-24"
+    class="bg-slate-800 pt-20 pb-48 text-white min-h-screen flex flex-col justify-end gap-y-24"
     aria-labelledby="page-title">
     <div class="container relative">
         <div class="flex justify-end">
@@ -17,7 +17,7 @@
     <div class="container grid grid-cols-4 gap-8 justify-start">
         <div
             id="service__1"
-            class="bg-sky-800/30 dark:bg-gradient-to-b dark:to-darkBox dark:from-slate-800 p-9 rounded-2xl">
+            class="bg-gradient-to-b to-darkBox from-slate-800 p-9 rounded-2xl">
             <i class="fa-solid fa-code text-5xl"></i>
             <h2 class="text-5xl leading-tight mb-4 font-semibold mt-9">{{__('Sviluppo Web')}}</h2>
             <p class="text-2xl mt-2">{{ __('Soluzioni scalabili e su misura, da Wordpress a Laravel: creiamo il sito di cui

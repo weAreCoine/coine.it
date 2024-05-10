@@ -5,7 +5,7 @@
     <x-welcome.above-the-fold/>
     <section
         id="method"
-        class="from-slate-1 00 to-white bg-gradient-to-b dark:from-slate-800 dark:to-slate-900"
+        class="bg-gradient-to-b from-slate-800 to-slate-900"
         aria-labelledby="section-1">
         <div class="py-32 container mx-auto">
             <div class="max-w-[75%] mx-auto">
@@ -22,7 +22,7 @@
         </div>
     </section>
     <x-welcome.services-sections/>
-    <section class="bg-sky-900 dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-800 py-32 text-white"
+    <section class="bg-gradient-to-b from-slate-900 to-slate-800 py-32 text-white"
              aria-labelledby="section-4">
         <div class="container">
             <h2 id="section-4"
@@ -35,23 +35,23 @@
             </div>
         </div>
     </section>
-    <section class="dark:bg-gradient-to-b dark:from-slate-800 dark:to-slate-900 py-32" aria-labelledby="section-6">
+    <section class="bg-gradient-to-b from-slate-800 to-slate-900 py-32" aria-labelledby="section-6">
         <div
             id="bulbs__container"
-            class="container bg-gradient-to-br from-transparent to-slate-100 dark:to-slate-800 dark:from-transparent py-16 rounded-2xl dark:text-white">
+            class="container bg-gradient-to-br to-slate-800 from-transparent py-16 rounded-2xl text-white">
             <div>
                 <img src="{{asset('storage/images/home/home-ideas.png')}}"
                      alt="{{__('Collabora con Coiné')}}"
                      width="512"
                      height="512"
-                     class="dark:invert mx-auto mb-12"
+                     class="invert mx-auto mb-12"
                      id="bulbs"
                 >
             </div>
             <h2 id="section-6"
                 class="text-7xl font-semibold w-3/5 text-center mx-auto mb-16">{{__('Pronto a espandere il tuo business?')}}</h2>
             <div class="text-center">
-                <a class="btn-primary dark:inverse text-2xl"
+                <a class="btn-primary inverse text-2xl"
                    href="{{route('new-project')}}">{{__('Condividi il tuo progetto')}}</a>
             </div>
         </div>
