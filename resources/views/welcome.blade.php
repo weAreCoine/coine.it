@@ -37,6 +37,7 @@
     </section>
     <section class="dark:bg-gradient-to-b dark:from-slate-800 dark:to-slate-900 py-32" aria-labelledby="section-6">
         <div
+            id="bulbs__container"
             class="container bg-gradient-to-br from-transparent to-slate-100 dark:to-slate-800 dark:from-transparent py-16 rounded-2xl dark:text-white">
             <div>
                 <img src="{{asset('storage/images/home/home-ideas.png')}}"
