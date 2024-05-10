@@ -67,7 +67,7 @@
         Route::delete('posts/empty-trash', [PostController::class, 'emptyTrash'])->name('posts.empty-trash');
         Route::post('posts/revive/{post}', [PostController::class, 'revive'])->name('posts.revive');
         Route::resource('posts', PostController::class)->except('view');
-        Route::get('console', [ConsoleService::class, 'console']);
+        Route::get('console', [ConsoleService::class, 'console'])->name('console');
         Route::resource('uploads', UploadController::class)->except('view');
     });
 

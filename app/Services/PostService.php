@@ -47,6 +47,11 @@
             }
         }
 
+        public static function getPost(int $postID)
+        {
+            return self::call("/posts/$postID");
+        }
+
         protected static function getTags()
         {
             return self::call('/tags?per_page=99&page=1&order_by=date&order=asc');
@@ -68,7 +73,7 @@
 
         }
 
-        protected static function getPosts()
+        public static function getPosts()
         {
             return self::call('/posts?per_page=99&page=1&order_by=date&order=asc');
         }
@@ -137,7 +142,7 @@
             // Change multiple <br>'s into two line breaks, which will turn into paragraphs.
             $text = preg_replace('|<br\s*/?>\s*<br\s*/?>|', "\n\n", $text);
 
-            $allBlocks = '(?:table|thead|tfoot|caption|col|colgroup|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|pre|form|map|area|blockquote|address|math|style|p|h[1-6]|hr|fieldset|legend|section|article|aside|hgroup|header|footer|nav|figure|figcaption|details|menu|summary)';
+            $allBlocks = '(?:table|thead|tfoot|caption|col|colgroup|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|pre|form|map|area|blockquote|address|math|style|p|h[1-6]|hr|feldset|legend|section|article|aside|hgroup|header|footer|nav|figure|figcaption|details|menu|summary)';
 
             // Add a double line break above block-level opening tags.
             $text = preg_replace('!(<' . $allBlocks . '[\s/>])!', "\n\n$1", $text);

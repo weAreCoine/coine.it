@@ -27,6 +27,15 @@
                 <i class="fa-solid fa-photo-film text-sm"></i>
                 <a href="{{route('uploads.index')}}" class="">{{__('Media')}}</a>
             </li>
+            <li class="mb-4 border-b border-b-slate-300 dark:border-b-slate-700"></li>
+            <li class="flex items-center gap-4 mb-4 last:mb-0">
+                <i class="fa-solid fa-terminal text-sm"></i>
+                <a href="{{route('console')}}" class="">{{__('Console')}}</a>
+            </li>
+            <li class="flex items-center gap-4 mb-4 last:mb-0">
+                <i class="fa-solid fa-home text-sm"></i>
+                <a href="{{route('home')}}" class="">{{__('Front page')}}</a>
+            </li>
         </ul>
     </nav>
 @endsection

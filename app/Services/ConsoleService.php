@@ -8,6 +8,6 @@
     {
         public static function console()
         {
-            PostService::createTags();
+            return view('console');
         }
     }

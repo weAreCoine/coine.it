@@ -58,6 +58,7 @@
 
         'asset_url' => env('ASSET_URL'),
 
+        'upload_url' => env('UPLOAD_URL'),
         /*
         |--------------------------------------------------------------------------
         | Application Timezone

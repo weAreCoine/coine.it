@@ -44,6 +44,7 @@
             </div>
         </div>
         <div class="mt-16">
+
             <textarea id="content" name="content" aria-label="{{__('PostService content')}}">
                 {!! old('content', $post->content) !!}
             </textarea>

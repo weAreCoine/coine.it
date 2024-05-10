@@ -2,13 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=source-sans-3:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"/>
+    <link href="https://fonts.bunny.net/css?family=source-sans-3:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet"/>
     @vite('resources/js/app.js')
     @vite('resources/css/app.css')
+    @vite('resources/icons/fontawesome/css/all.css')
 </head>
 <body>
 @yield('header')
@@ -23,7 +26,6 @@
     @yield('content')
 </main>
 <footer class="dark:bg-slate-900">
-    <script src="https://kit.fontawesome.com/66831c7c40.js" async></script>
     @include('layouts.parts.colophon')
 </footer>
 </body>

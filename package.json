@@ -16,6 +16,7 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
-        "@alpinejs/collapse": "^3.10.5"
+        "@alpinejs/collapse": "^3.10.5",
+        "gsap": "^3.12.5"
     }
 }

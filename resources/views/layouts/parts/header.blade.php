@@ -1,8 +1,8 @@
 <?php
-    $light = $light ?? false;
+$light = $light ?? false;
 ?>
 <header @class([
-    'sticky top-0 backdrop-blur-sm z-50',
+    'fixed top-0 left-0 w-full backdrop-blur-sm z-50',
     'bg-sky-900 dark:bg-slate-800' => !$light,
     'bg-white/90  dark:bg-slate-900/90' => $light,
 ])>
@@ -12,7 +12,9 @@
             'text-white' => !$light,
             ])>
                 <ul class="flex gap-x-16 items-center">
-                    <li @class(['current' => request()->routeIs('new-project')])><a @class(['back-button', 'inverse' => !$light]) href="{{route('home')}}"><span class="hidden sm:inline">{{__('Back to Home')}}</span></a></li>
+                    <li @class(['current' => request()->routeIs('new-project')])><a
+                            @class(['back-button', 'inverse' => !$light]) href="{{route('home')}}"><span
+                                class="hidden sm:inline">{{__('Back to Home')}}</span></a></li>
                 </ul>
             </navigation>
             <div class="flex justify-center items-center">
@@ -26,11 +28,16 @@
             'text-white' => !$light,
             ])>
                 <ul class="flex gap-x-16 items-center">
-                    <li @class(['current' => request()->routeIs('home')])><a href="{{route('home')}}">Home</a></li>
-                    <li><a href="{{route('home')}}">About</a></li>
-                    <li><a href="{{route('home')}}">Works</a></li>
-                    <li><a href="{{route('blog')}}">Blog</a></li>
-                    <li @class(['current' => request()->routeIs('new-project')])><a @class(['btn-primary', 'inverse' => !$light]) href="{{route('new-project')}}">Start a Project</a></li>
+                    <li @class(['current' => request()->routeIs('home')])><a href="{{route('home')}}">
+                            <i class="fa-solid fa-home"></i>
+                        </a>
+                    </li>
+                    @if(auth()->user() !== null)
+                        <li><a href="{{route('dashboard')}}">Dashboard</a></li>
+                    @endif
+                    <li @class(['current' => request()->routeIs('new-project')])><a
+                            @class(['btn-primary', 'inverse' => !$light]) href="{{route('new-project')}}">Start a
+                            Project</a></li>
                 </ul>
             </navigation>
         </div>
