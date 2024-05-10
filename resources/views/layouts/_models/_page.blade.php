@@ -13,7 +13,7 @@
     @vite('resources/css/app.css')
     @vite('resources/icons/fontawesome/css/all.css')
 </head>
-<body>
+<body class="dark">
 @yield('header')
 <main class="@yield('mainClasses') bg-white dark:bg-slate-900">
     <div x-data="{visible : true}" x-show="visible" x-transition.opacity.duration.500ms @load.window="visible = false"

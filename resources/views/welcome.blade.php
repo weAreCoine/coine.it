@@ -5,7 +5,7 @@
     <x-welcome.above-the-fold/>
     <section
         id="method"
-        class="from-slate-1 00 to-white bg-gradient-to-b dark:from-slate-800 dark:to-slate-900"
+        class="from-slate-100 to-white bg-gradient-to-b dark:from-slate-800 dark:to-slate-900"
         aria-labelledby="section-1">
         <div class="py-32 container mx-auto">
             <div class="max-w-[75%] mx-auto">
