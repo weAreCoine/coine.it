@@ -3,7 +3,7 @@ const colors = require('tailwindcss/colors')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    // darkMode: 'selector',
+    darkMode: 'selector',
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
@@ -11,6 +11,11 @@ module.exports = {
     ],
 
     theme: {
+        screens: {
+            '2xs': '390px',
+            xs: '475px',
+            ...defaultTheme.screens
+        },
         maxWidth: {
             '8xl': '90rem',
         },
@@ -25,6 +30,8 @@ module.exports = {
                 darkBox: '#25344E',
                 darkBackground: colors.stone,
                 accent: {
+                    hover: '#ff6d64',
+                    DEFAULT: '#ff2d20',
                     '50': '#fff2f1',
                     '100': '#ffe1df',
                     '200': '#ffc8c5',

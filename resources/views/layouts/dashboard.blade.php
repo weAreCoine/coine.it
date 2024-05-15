@@ -10,7 +10,7 @@
                 @php($label = __('Articles'))
                 <i class="fa-solid fa-pen-nib text-sm"></i>
                 @if(request()->routeIs('posts.index'))
-                    <span class="font-medium underline decoration-accent-500 underline-offset-4">{{$label}}</span>
+                    <span class="font-medium underline decoration-accent underline-offset-4">{{$label}}</span>
                 @else
                     <a href="{{route('posts.index')}}">{{$label}}</a>
                 @endif

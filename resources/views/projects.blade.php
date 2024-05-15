@@ -2,26 +2,29 @@
 <?php
 $data = json_encode([
     'servicesChips' => [
-        'webDesign' => __('Web Design'),
-        'translation' => __('Translation'),
+        'webDesign' => __('UX/UI Design'),
+        'translation' => __('Traduzione'),
         'contentWriting' => __('Content Writing'),
-        'website' => __('Website'),
+        'website' => __('Web Development'),
         'onlineMarketing' => __('Online Marketing'),
-        'flutterApp' => __('Flutter App'),
-        'teaching' => __('Teaching'),
-        'adsStrategy' => __('Ads Strategy'),
+        'flutterApp' => __('App Flutter'),
+        'teaching' => __('Formazione'),
+        'adsStrategy' => __('Strategia Marketing'),
     ],
     'faqs' => [
         [
+            'question' => __('Accettate un compenso in percentuale sul fatturato?'),
+            'answer' => __('No. Questo tipo di accordi ha tantissimi limiti, possibili conflitti di interesse e altre criticità. Preferiamo dimostrare la fiducia che riponiamo nelle nostre capacità stipulando contratti che lasciano le mani di entrambe le parti libere di svincolarsi qualora non si lavorasse bene insieme.'),
+        ],
+        [
+            'question' => __('Quali son'),
+            'answer' => 'Great question! The first step is to get in touch by filling out our contact form, which you’ll find here. We usually start our projects with a discovery call, followed by a short exploration phase where we work with you to define the project scope and services we can help you with. We’ll then share our cost estimate, prepare a statement of work, and schedule kickoff calls with our teams. Once the paperwork is complete and the deposit payment is settled, we get to work!',
+        ],
+        [
             'question' => 'How can we start a project together?',
             'answer' => 'Great question! The first step is to get in touch by filling out our contact form, which you’ll find here. We usually start our projects with a discovery call, followed by a short exploration phase where we work with you to define the project scope and services we can help you with. We’ll then share our cost estimate, prepare a statement of work, and schedule kickoff calls with our teams. Once the paperwork is complete and the deposit payment is settled, we get to work!',
-        ], [
-            'question' => 'How can we start a project together?',
-            'answer' => 'Great question! The first step is to get in touch by filling out our contact form, which you’ll find here. We usually start our projects with a discovery call, followed by a short exploration phase where we work with you to define the project scope and services we can help you with. We’ll then share our cost estimate, prepare a statement of work, and schedule kickoff calls with our teams. Once the paperwork is complete and the deposit payment is settled, we get to work!',
-        ], [
-            'question' => 'How can we start a project together?',
-            'answer' => 'Great question! The first step is to get in touch by filling out our contact form, which you’ll find here. We usually start our projects with a discovery call, followed by a short exploration phase where we work with you to define the project scope and services we can help you with. We’ll then share our cost estimate, prepare a statement of work, and schedule kickoff calls with our teams. Once the paperwork is complete and the deposit payment is settled, we get to work!',
-        ], [
+        ],
+        [
             'question' => 'How can we start a project together?',
             'answer' => 'Great question! The first step is to get in touch by filling out our contact form, which you’ll find here. We usually start our projects with a discovery call, followed by a short exploration phase where we work with you to define the project scope and services we can help you with. We’ll then share our cost estimate, prepare a statement of work, and schedule kickoff calls with our teams. Once the paperwork is complete and the deposit payment is settled, we get to work!',
         ],
@@ -51,39 +54,55 @@ $data = json_encode([
                 } else {
                     this.selectedServices.push(service);
                 }
+                this.checkSubmitEnable();
             },
 
             toggleBudget(budget) {
                 this.selectedBudget = this.selectedBudget === budget ? null : budget;
+                this.checkSubmitEnable();
             },
             toggleFaq(index) {
                 if (index === this.openFaq) this.openFaq = -1;
                 else {
                     this.openFaq = index;
                 }
-            }
+            },
+            checkSubmitEnable() {
+                this.submitEnabled =
+                    this.firstName.length &&
+                    this.lastName.length &&
+                    this.email.length &&
+                    this.phone.length &&
+                    this.content.length &&
+                    this.selectedServices.length &&
+                    this.selectedBudget !== null;
+            },
         }
-    };
+    }
 </script>
 
 @section('content')
     <div x-data="getStartProjectData()">
-        <div class="container pt-12">
-            <div class="w-5/6 mx-auto">
+        <div class="container pt-48">
+            <div class="sm:w-5/6 mx-auto">
                 <h1 id="page-title"
-                    class="text-7xl font-semibold">{{__('We craft holistic, people friendly digital experiences')}}</h1>
-                <p class="text-4xl mt-12">{{__('BB Agency is a strategic partner for fast-growing tech companies in need of a scalable website with modular CMS, a design system, and future-proof brand identity.')}}</p>
+                    class="text-5xl sm:text-6xl lg:text-7xl font-semibold">{{__('Potremmo lavorare insieme. Iniziamo?')}}</h1>
+                <p class="text-3xl sm:text-4xl mt-12">{{__('Inizia raccontandoci qualcosa di te, dei tuoi obiettivi e del progetto su cui vorresti lavorassimo insieme.')}}</p>
                 <form action="" method="POST">
                     @csrf
                     <div
-                        class="rounded-2xl bg-darkBackground-50 dark:bg-darkBackground-800/40 dark:bg-darkBackground-800/40 mt-20 p-16">
-                        <h2 class="text-3xl font-medium">{{__('Im interested in...')}}</h2>
-                        <ul class="mt-12 flex flex-wrap gap-x-4 gap-y-8">
+                        class="form__field">
+                        <h2 class="title">
+                            {{__('Sono interessato a...')}}
+
+                        </h2>
+                        <input type="hidden" name="services" required x-model="selectedServices.join('_')">
+                        <ul class="chips__container">
                             <template x-for="(label, value) in servicesChips" :key="value">
-                                <li class="cursor-pointer flex items-center gap-3 font-medium rounded-full border border-darkBackground-300 px-6 py-2 text-2xl inline-block duration-500"
+                                <li class="chip"
                                     :class="{
-                                    'bg-sky-900 dark:bg-accent-500 hover:bg-sky-800 dark:hover:bg-accent-600 border-sky-900 text-white font-semibold': selectedServices.includes(value),
-                                    'text-darkBackground-500 dark:text-darkBackground-400 hover:text-darkBackground-900 dark:hover:text-white': !selectedServices.includes(value)
+                                    'selected': selectedServices.includes(value),
+                                    'not__selected': !selectedServices.includes(value)
                                 }"
                                     @click="toggleService(value)">
                                     <i class="fa-regular fa-circle-check text-xl opacity-70"
@@ -93,49 +112,51 @@ $data = json_encode([
                             </template>
                         </ul>
                     </div>
-                    <div class="rounded-2xl bg-darkBackground-50 dark:bg-darkBackground-800/40 mt-12 p-16">
-                        <h2 class="text-3xl font-medium">{{__('Let us to know first...')}}</h2>
-                        <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div class="form__field">
+                        <h2 class="title">{{__('Raccontaci di te...')}}</h2>
+                        <div class="grid md:grid-cols-2 gap-8 mt-8">
                             <div class="material-input">
                                 <input type="text" id="firstName" autocomplete="given-name" placeholder=" " required
-                                       name="firstName" x-model="firstName">
-                                <label for="firstName">{{__('Your first name')}}</label>
+                                       name="firstName" x-model="firstName" @change="checkSubmitEnable()">
+                                <label for="firstName">{{__('Il tuo nome')}}</label>
                             </div>
                             <div class="material-input">
                                 <input type="text" id="lastName" placeholder=" " required autocomplete="family-name"
-                                       name="lastName" x-model="lastName">
-                                <label for="lastName">{{__('Your last name')}}</label>
+                                       name="lastName" x-model="lastName" @change="checkSubmitEnable()">
+                                <label for="lastName">{{__('Il tuo cognome')}}</label>
                             </div>
                             <div class="material-input">
                                 <input type="email" id="email" placeholder=" " required autocomplete="email"
-                                       name="email" x-model="email">
-                                <label for="email">{{__('Your email address')}}</label>
+                                       name="email" x-model="email" @change="checkSubmitEnable()">
+                                <label for="email">{{__('Il tuo indirizzo email')}}</label>
                             </div>
                             <div class="material-input">
-                                <input type="phone" id="phone" placeholder=" " required autocomplete="tel" name="phone"
-                                       x-model="phone">
-                                <label for="phone">{{__('Your phone number')}}</label>
+                                <input type="tel" id="phone" placeholder=" " required autocomplete="tel" name="phone"
+                                       x-model="phone" @change="checkSubmitEnable()">
+                                <label for="phone">{{__('Il tuo numero di telefono')}}</label>
                             </div>
                         </div>
                     </div>
 
-                    <div class="rounded-2xl bg-darkBackground-50 dark:bg-darkBackground-800/40 mt-12 p-16">
-                        <h2 class="text-3xl font-medium">{{__('Tell us about your project...')}}</h2>
+                    <div class="form__field">
+                        <h2 class="title">{{__('Raccontaci qualcosa del tuo progetto...')}}</h2>
                         <textarea required
-                                  placeholder="{{__('Your project goals in a snapshot... Give some words that we might know for this project :)')}}"
+                                  placeholder="{{__('Gli obiettivi del progetto in poche parole... scrivi ciò che pensi dovremmo sapere del tuo progetto 😉')}}"
                                   name="content" x-model="content" id="content"
-                                  class="w-full mt-8 border-b border-b-darkBackground-300 bg-transparent outline-none text-2xl placeholder-darkBackground-500"
-                                  cols="30" rows="10"></textarea>
+                                  class="w-full mt-8 border-b border-b-darkBackground-300 bg-transparent outline-none text-2xl placeholder-opacity-100 placeholder-darkBackground-500 focus:placeholder-opacity-0 duration-500"
+                                  cols="30" rows="10"
+                        ></textarea>
                     </div>
 
-                    <div class="rounded-2xl bg-darkBackground-50 dark:bg-darkBackground-800/40 mt-12 p-16">
-                        <h2 class="text-3xl font-medium">{{__('Project budget (EUR)...')}}</h2>
-                        <ul class="mt-12 flex flex-wrap gap-x-4 gap-y-8">
+                    <div class="form__field">
+                        <h2 class="title">{{__('Budget per il progetto (EUR)...')}}</h2>
+                        <input type="hidden" name="budget" x-model="selectedBudget">
+                        <ul class="chips__container">
                             <template x-for="(label, value) in budgets" :key="value">
-                                <li class="cursor-pointer flex items-center gap-3 font-medium rounded-full border border-darkBackground-300 px-6 py-2 text-2xl inline-block duration-500"
+                                <li class="chip"
                                     :class="{
-                                    'bg-sky-900 hover:bg-sky-800 border-sky-900 text-white font-semibold': selectedBudget === value,
-                                    'text-darkBackground-500 hover:text-darkBackground-900': selectedBudget !== value
+                                    'selected': selectedBudget === value,
+                                    'not__selected': selectedBudget !== value
                                 }"
                                     @click="toggleBudget(value)">
                                     <i class="fa-regular fa-circle-check text-xl opacity-70"
@@ -147,27 +168,26 @@ $data = json_encode([
                     </div>
                     <div class="text-right mt-12">
                         <button type="submit" class="btn-primary text-2xl"
-                                :disabled="!submitEnabled">{{__('Send request')}}</button>
+                                :disabled="!submitEnabled">{{__('Invia')}}</button>
                     </div>
                 </form>
             </div>
             <hr class="my-24 border-darkBackground-900 border-[1px]">
             <div class="grid grid-cols-3 mt-20 gap-x-8 gap-y-24">
-                <h2 class="text-5xl col-span-2 font-semibold">If you prefer, send us an email for new business
-                    opportunities or job openings.</h2>
-                <div class="col-start-2 row-start-2">
+                <h2 class="text-4xl sm:text-5xl col-span-3 sm:col-span-2 font-semibold">{{__('Se preferisci, puoi metterti in contatto con noi utilizzando uno dei metodi qui sotto.')}}</h2>
+                <div class="lg:col-start-2 lg:row-start-2 col-span-3">
                     <a href="mailto:ciao@coine.it"
                        class="text-4xl font-semibold style-none inline-block">ciao@coine.it</a>
-                    <p class="text-xl mt-2 text-darkBackground-400">New business and General</p>
+                    <p class="text-xl mt-2 text-darkBackground-400">{{__('Nuovi progetti e informazioni')}}</p>
                     <a href="tel:003934576837" class="text-4xl font-semibold style-none inline-block mt-9">+39 345 447
                         6837</a>
-                    <p class="text-xl mt-2 text-darkBackground-400">Marketing and Developing</p>
+                    <p class="text-xl mt-2 text-darkBackground-400">{{__('Sviluppo e Marketing')}}</p>
                     <a href="tel:00393292130462" class="text-4xl font-semibold style-none inline-block mt-9">+39 329 213
                         0462</a>
-                    <p class="text-xl mt-2 text-darkBackground-400">Content Writing and Translations</p>
+                    <p class="text-xl mt-2 text-darkBackground-400">{{__('Traduzioni e Creazione Contenuti')}}</p>
                 </div>
-                <div class="col-start-3 row-start-2">
-                    <h3 class="text-4xl font-semibold">Head Office</h3>
+                <div class="lg:col-start-3 lg:row-start-2 col-span-3 lg:col-span-1">
+                    <h3 class="text-4xl font-semibold">Dove siamo</h3>
                     <a href="https://goo.gl/maps/Nzen6mimbRcrj6fb8"
                        class="style-none block mt-8 text-xl text-darkBackground-400 leading-relaxed">
                         via San Martino Carano 50/A<br>
@@ -178,43 +198,43 @@ $data = json_encode([
                 </div>
             </div>
         </div>
-        <div
-            class="bg-sky-900 dark:bg-gradient-to-b dark:from-darkBackground-900 dark:to-darkBackground-800 py-24 my-24 dark:mb-0">
-            <div class="container w-5/6 mx-auto grid grid-cols-3 gap-8">
-                <h2 id="faq-title" class="text-5xl font-semibold text-white text-left">Frequently Asked Questions</h2>
-                <div class="col-start-1 row-start-2">
-                    <img src="{{asset('images/new-project/high-five.png')}}" alt="High Five Image"
-                         class="mt-8 mix-blend-luminosity">
-                </div>
-                <section class="col-span-2 row-start-2" aria-labelledby="faq-title">
-                    <ul class="text-white text-3xl">
-                        <template x-for="(faq, index) in faqs" :key="index">
-                            <li class="mt-12 first:mt-0">
-                                <div class="question cursor-pointer flex justify-between items-center"
-                                     @click="toggleFaq(index)">
-                                    <h3 x-text="faq.question"></h3>
-                                    <div class="accordion-icon" :class="{'open' : openFaq === index}"></div>
-                                </div>
-                                <p x-text="faq.answer" class="p-8 text-xl bg-white/10 mt-6 rounded-2xl"
-                                   x-show="openFaq === index" x-collapse></p>
-                            </li>
-                        </template>
+        {{--        <div--}}
+        {{--            class="bg-sky-900 dark:bg-gradient-to-b dark:from-darkBackground-900 dark:to-darkBackground-800 py-24 my-24 dark:mb-0">--}}
+        {{--            <div class="container w-5/6 mx-auto grid grid-cols-3 gap-8">--}}
+        {{--                <h2 id="faq-title" class="text-5xl font-semibold text-white text-left">{{__('Domande frequenti')}}</h2>--}}
+        {{--                <div class="col-start-1 row-start-2">--}}
+        {{--                    <img src="{{asset('storage/images/contacts/faq.png')}}" alt="High Five Image"--}}
+        {{--                         class="mt-8 mix-blend-luminosity">--}}
+        {{--                </div>--}}
+        {{--                <section class="col-span-2 row-start-2" aria-labelledby="faq-title">--}}
+        {{--                    <ul class="text-white text-3xl">--}}
+        {{--                        <template x-for="(faq, index) in faqs" :key="index">--}}
+        {{--                            <li class="mt-12 first:mt-0">--}}
+        {{--                                <div class="question cursor-pointer flex justify-between items-center"--}}
+        {{--                                     @click="toggleFaq(index)">--}}
+        {{--                                    <h3 x-text="faq.question"></h3>--}}
+        {{--                                    <div class="accordion-icon" :class="{'open' : openFaq === index}"></div>--}}
+        {{--                                </div>--}}
+        {{--                                <p x-text="faq.answer" class="p-8 text-xl bg-white/10 mt-6 rounded-2xl"--}}
+        {{--                                   x-show="openFaq === index" x-collapse></p>--}}
+        {{--                            </li>--}}
+        {{--                        </template>--}}
 
-                    </ul>
-                </section>
-            </div>
-        </div>
-        <div class="dark:bg-gradient-to-b dark:from-darkBackground-800 dark:to-darkBackground-900 dark:pt-24">
-            <div class="container ">
-                <div class="w-4/6 mx-auto text-center">
-                    <h2 id="page-title"
-                        class="text-7xl font-semibold">{{__('Get a better understanding of our knowledge')}}</h2>
-                    <p class="text-4xl mt-8">BB Agency is a strategic partner for fast-growing tech companies in need of
-                        a scalable website with modular CMS, a design system, and future-proof brand identity.</p>
+        {{--                    </ul>--}}
+        {{--                </section>--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
+        {{--        <div class="dark:bg-gradient-to-b dark:from-darkBackground-800 dark:to-darkBackground-900 dark:pt-24">--}}
+        {{--            <div class="container ">--}}
+        {{--                <div class="w-4/6 mx-auto text-center">--}}
+        {{--                    <h2 id="page-title"--}}
+        {{--                        class="text-7xl font-semibold">{{__('Get a better understanding of our knowledge')}}</h2>--}}
+        {{--                    <p class="text-4xl mt-8">BB Agency is a strategic partner for fast-growing tech companies in need of--}}
+        {{--                        a scalable website with modular CMS, a design system, and future-proof brand identity.</p>--}}
 
-                    <a href="" class="btn-secondary mt-24 inline-block">{{__('Latest articles')}}</a>
-                </div>
-            </div>
-        </div>
+        {{--                    <a href="" class="btn-secondary mt-24 inline-block">{{__('Latest articles')}}</a>--}}
+        {{--                </div>--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
     </div>
 @endsection

@@ -125,7 +125,7 @@
                             <div x-text="title"
                                  class="py-1 text-sm rounded-full cursor-pointer duration-300 px-4"
                                  :class="{
-                                    'bg-accent-500': isSelected(id),
+                                    'bg-accent': isSelected(id),
                                     'bg-darkBackground-700': !isSelected(id)
                                  }"
                                  @click="toggle(id)"

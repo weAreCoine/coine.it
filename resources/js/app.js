@@ -25,3 +25,4 @@ switch (window.location.pathname) {
 window.Alpine = Alpine;
 Alpine.plugin(collapse);
 Alpine.start();
+
