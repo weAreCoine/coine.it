@@ -151,6 +151,7 @@ export default function homeAnimations() {
                     end: 'top center',
                     scrub: 1.5 - (i % 2) / 2,
                     invalidateOnRefresh: true,
+                    markers: false,
                 }
             }
         )

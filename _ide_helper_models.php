@@ -1,6 +1,7 @@
 <?php
 
 // @formatter:off
+// phpcs:ignoreFile
 /**
  * A helper file for your Eloquent Models
  * Copy the phpDocs from this file to the correct Model,
@@ -12,7 +13,7 @@
 
 namespace App\Models{
 /**
- * App\Models\Category
+ * 
  *
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -44,7 +45,39 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * App\Models\Language
+ * 
+ *
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $email
+ * @property string $phone
+ * @property string $budget
+ * @property string $services
+ * @property string $note
+ * @method static \Database\Factories\ContactFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereBudget($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereFirstName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereLastName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereNote($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereServices($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereUpdatedAt($value)
+ */
+	class Contact extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
  *
  * @property int $id
  * @property string $language_code
@@ -62,7 +95,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * App\Models\Post
+ * 
  *
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -113,7 +146,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * App\Models\PostTag
+ * 
  *
  * @property int $post_id
  * @property int $tag_id
@@ -128,7 +161,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * App\Models\PostUpload
+ * 
  *
  * @property int $post_id
  * @property int $upload_id
@@ -143,7 +176,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * App\Models\Tag
+ * 
  *
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -175,7 +208,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * App\Models\Upload
+ * 
  *
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -209,7 +242,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * App\Models\User
+ * 
  *
  * @property int $id
  * @property string $first_name
