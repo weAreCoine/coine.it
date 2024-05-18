@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('posts', PostController::class)->only('view');
+Route::resource('posts', PostController::class)->only('show');
 Route::get('blog', [PostController::class, 'archive'])->name('blog');
 
 Route::post('/new-contact', [ContactController::class, 'store'])->name('contact.store');
