@@ -28,8 +28,27 @@
 
 @tailwind components;
 
-
 @layer components {
+    .navigation__item {
+        @apply px-1;
+
+        &.current {
+            @apply border-b border-accent;
+        }
+
+        > a {
+            @apply flex flex-col items-center justify-center gap-y-1 font-medium;
+
+            > svg {
+                @apply h-8 w-auto fill-white duration-500;
+            }
+
+            &:hover > svg {
+                @apply fill-accent;
+            }
+        }
+    }
+
     .chips__container {
         @apply mt-12 flex flex-wrap  gap-x-2 sm:gap-x-4 sm:gap-y-8 gap-y-4;
 

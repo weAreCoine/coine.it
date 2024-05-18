@@ -65,7 +65,7 @@
                     <p x-text="`${content.length} of 50`" class="text-xs mt-2 text-right opacity-60"></p>
                 </div>
                 <div x-data="{content: '{{old('seo_description', $post->seo_description)}}'}">
-                    <label class="uppercase font-bold text-xs" for="seo_description">{{__('SEO Title')}}</label>
+                    <label class="uppercase font-bold text-xs" for="seo_description">{{__('SEO Description')}}</label>
                     <textarea class="w-full bg-transparent outline-0" x-model="content" type="text" id="seo_description"
                               name="seo_description" placeholder=" ">
                     </textarea>
@@ -120,13 +120,13 @@
                         });
                     </script>
                     <div x-data="tagsData()" x-init="console.log(selectedTags)"
-                         class="flex flex-wrap gap-y-2 gap-x-4 h-32 overflow-y-auto mt-2">
+                         class="flex flex-wrap gap-2 h-32 overflow-y-auto mt-2">
                         <template x-for="(title, id) in tags" :key="id">
                             <div x-text="title"
                                  class="py-1 text-sm rounded-full cursor-pointer duration-300 px-4"
                                  :class="{
-                                    'bg-accent': isSelected(id),
-                                    'bg-darkBackground-700': !isSelected(id)
+                                    'bg-accent text-white': isSelected(id),
+                                    'bg-gray-100': !isSelected(id)
                                  }"
                                  @click="toggle(id)"
                             ></div>

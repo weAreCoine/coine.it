@@ -8,7 +8,25 @@ gsap.registerPlugin(TextPlugin, ScrollTrigger);
 
 export default function homeAnimations() {
 
+    const clientsCards = document.querySelectorAll('.client__card');
+    const clientsCount = clientsCards.length;
+
     const mm = gsap.matchMedia();
+    for (let i = 0; i < clientsCount; i++) {
+        gsap.from(
+            clientsCards[i], {
+                x: ([0, 1, 4, 5].includes(i) ? -window.innerWidth : window.innerWidth),
+                scrollTrigger: {
+                    trigger: clientsCards[i],
+                    start: 'top bottom',
+                    end: 'top 50%',
+                    scrub: 1.5 - (i % 2) / 2,
+                    invalidateOnRefresh: true,
+                    markers: false,
+                }
+            }
+        );
+    }
 
     mm.add('(max-width:1023px)', () => {
         gsap.fromTo('#image__to__rotate', {
@@ -108,7 +126,6 @@ export default function homeAnimations() {
         });
 
         for (let i = 0; i < 3; i++) {
-            if (i === 3) break;
 
             gsap.from(`#long__service__title__${i + 1}`, {
                 x: "-100%",
@@ -123,6 +140,7 @@ export default function homeAnimations() {
                     invalidateOnRefresh: true,
                 }
             });
+
             gsap.from(`#long__service__body__${i + 1}`, {
                 x: "100%",
                 opacity: 0,
@@ -139,26 +157,8 @@ export default function homeAnimations() {
     });
 
 
-    const clientsCards = document.querySelectorAll('.client__card');
-    const clientsCount = clientsCards.length;
-    for (let i = 0; i < clientsCount; i++) {
-        gsap.from(
-            clientsCards[i], {
-                x: [0, 1, 4, 5].includes(i) ? -window.innerWidth : window.innerWidth,
-                scrollTrigger: {
-                    trigger: clientsCards[i],
-                    start: 'top bottom',
-                    end: 'top center',
-                    scrub: 1.5 - (i % 2) / 2,
-                    invalidateOnRefresh: true,
-                    markers: false,
-                }
-            }
-        )
-    }
+    mm.add('(min-width: 1024px)', () => {
 
-
-    mm.add('(min-width: 1024px', () => {
         /**
          * ABOVE THE FOLD ANIMATIONS
          */
@@ -242,6 +242,22 @@ export default function homeAnimations() {
                     invalidateOnRefresh: true,
                 }
             });
+            
+            gsap.to(`#long__service__container__${i + 1}`, {
+                opacity: 0,
+                ease: 'expo.in',
+                delay: 19,
+                scrollTrigger: {
+                    trigger: `#long__service__container__${i + 1}`,
+                    start: 'top center',
+                    end: 'top top',
+                    pin: true,
+                    scrub: 1,
+                    pinSpacing: true,
+                    invalidateOnRefresh: true,
+                }
+            });
+
             gsap.from(`#long__service__body__${i + 1}`, {
                 x: "100%",
                 opacity: 0,
@@ -309,6 +325,7 @@ export default function homeAnimations() {
 
         gsap.from('#bulbs', {
             opacity: 0,
+            scale: '1.2',
             y: "-70%",
             ease: 'power3.out',
             scrollTrigger: {
@@ -335,26 +352,8 @@ export default function homeAnimations() {
         )
 
     });
+    mm.add('(min-height: 1100px) and (min-width: 1024px)', () => {
 
-    mm.add('(min-height: 1100px) and (min-width:1024px)', () => {
-        for (let i = 0; i < 3; i++) {
-
-
-            gsap.to(`#long__service__container__${i + 1}`, {
-                opacity: 0,
-                ease: 'expo.in',
-                delay: 19,
-                scrollTrigger: {
-                    trigger: `#long__service__container__${i + 1}`,
-                    start: 'top center',
-                    end: 'bottom top',
-                    pin: true,
-                    scrub: true,
-                    pinSpacing: true,
-                    invalidateOnRefresh: true,
-                }
-            });
-        }
 
         gsap.timeline({
             scrollTrigger: {
@@ -365,12 +364,10 @@ export default function homeAnimations() {
                 scrub: 1,
                 pin: '.services',
                 pinSpacing: false,
-                anticipatePin: true,
                 invalidateOnRefresh: true,
                 markers: false,
             }
         });
-
     });
 
     gsap.to('#section-4', {

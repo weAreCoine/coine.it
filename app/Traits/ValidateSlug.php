@@ -1,21 +1,22 @@
 <?php
 
-    namespace App\Traits;
+namespace App\Traits;
 
-    use Str;
+use Str;
 
-    trait ValidateSlug
+trait ValidateSlug
+{
+    public static function validateSlug(string $slug): string
     {
-        public static function validateSlug(string $slug): string
-        {
-            $slug = Str::slug($slug);
+        $slug = Str::slug($slug);
 
-            $validated = $slug;
+        $validated = $slug;
 
-            while (self::whereSlug($validated)->count() > 0) {
-                static $i = 1;
-                $validated = "$slug-$i";
-            }
-            return $validated;
+        while (self::whereSlug($validated)->exists()) {
+            static $i = 1;
+            $validated = "$slug-$i";
         }
+
+        return $validated;
     }
+}

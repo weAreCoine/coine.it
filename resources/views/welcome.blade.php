@@ -31,6 +31,8 @@
 
             </div>
         </section>
+        <x-clients-list/>
+
         <x-welcome.services-sections/>
         <section id="section__4__container"
                  class="bg-sky-900 dark:bg-gradient-to-b dark:from-darkBackground-900 dark:to-darkBackground-800 section-padding text-white"
@@ -69,5 +71,4 @@
             </div>
         </section>
     @endif
-    <x-clients-list/>
 @endsection

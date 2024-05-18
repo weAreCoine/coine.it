@@ -6,9 +6,10 @@
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
-        @foreach($files as $file)
+        @foreach($files as $index => $file)
             @php($client = pathinfo(basename($file))['filename'])
-            <div class="p-8 rounded-2xl bg-gradient-to-b from-transparent to-white/5 backdrop-blur client__card">
+            <div data-id="{{$index+1}}"
+                 class="p-8 rounded-2xl bg-gradient-to-b from-transparent to-white/5 backdrop-blur client__card">
                 <div class="overflow-hidden rounded-xl sm:rounded-2xl group">
                     <img src="{{$file}}" alt="{{ucwords(\Illuminate\Support\Str::replace('_', ' ', $client))}} logo"
                          class="w-full h-auto duration-[2s] group-hover:scale-105" height="451"
